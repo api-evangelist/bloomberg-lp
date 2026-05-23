@@ -1,0 +1,54 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "@vocab": "https://schema.org/",
+    "schema": "https://schema.org/",
+    "fibo": "https://spec.edmcouncil.org/fibo/ontology/",
+    "figi": "https://www.openfigi.com/about/figi#",
+    "bloomberg": "https://www.bloomberg.com/",
+    "openfigi": "https://www.openfigi.com/",
+    "Organization": "schema:Organization",
+    "FinancialProduct": "schema:FinancialProduct",
+    "Article": "schema:Article",
+    "FIGI": "figi:FinancialInstrumentGlobalIdentifier",
+    "MarketSector": "figi:MarketSector",
+    "SecurityType": "figi:SecurityType",
+    "FigiRecord": "openfigi:FigiRecord",
+    "MappingJob": "openfigi:MappingJob",
+
+    "figiId": {
+      "@id": "openfigi:figi",
+      "@type": "xsd:string"
+    },
+    "compositeFIGI": {
+      "@id": "openfigi:compositeFIGI",
+      "@type": "xsd:string"
+    },
+    "shareClassFIGI": {
+      "@id": "openfigi:shareClassFIGI",
+      "@type": "xsd:string"
+    },
+    "ticker": "openfigi:ticker",
+    "exchCode": "openfigi:exchCode",
+    "marketSector": "openfigi:marketSector",
+    "securityType": "openfigi:securityType",
+    "securityType2": "openfigi:securityType2",
+    "securityDescription": "openfigi:securityDescription",
+    "name": "schema:name",
+
+    "idType": "openfigi:idType",
+    "idValue": "openfigi:idValue",
+    "micCode": "openfigi:micCode",
+    "currency": "openfigi:currency",
+    "marketSecDes": "openfigi:marketSecDes",
+
+    "BloombergTerminal": "bloomberg:Terminal",
+    "BLPAPI": "bloomberg:BLPAPI",
+    "ServerAPI": "bloomberg:ServerAPI",
+    "BPIPE": "bloomberg:BPIPE",
+    "DataLicense": "bloomberg:DataLicense",
+    "BloombergNews": "bloomberg:News",
+
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  }
+}

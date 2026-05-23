@@ -1,0 +1,190 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Bloomberg L.P.
+providerId: bloomberg-lp
+created: '2026-05-23'
+modified: '2026-05-23'
+tags:
+  - Financial Services
+  - Market Data
+  - News
+  - Reference Data
+  - Symbology
+  - Terminal
+description: >-
+  Machine-readable plans and pricing for Bloomberg L.P.'s developer surfaces.
+  Two distinct commercial models coexist: OpenFIGI is a free, public API with
+  per-IP and per-key rate ceilings; BLPAPI (Desktop API, Server API, B-PIPE,
+  Data License) is entitled through a Bloomberg Terminal or enterprise
+  contract, and Bloomberg does not publish list pricing. Listed prices below
+  reflect the public surface only.
+plans:
+  - id: openfigi-anonymous
+    name: OpenFIGI Anonymous
+    type: free
+    description: >-
+      Public, no-signup access to the OpenFIGI /v3 API. Throughput is capped
+      per IP. Suitable for prototyping, infrequent lookups, and educational use.
+    entries:
+      - label: Mapping Requests
+        description: POST /v3/mapping calls (anonymous IP-based)
+        name: mapping_requests
+        type: rate
+        metric: requests_per_minute
+        limit: 25
+        timeFrame: minute
+        geo: global
+        domains:
+          - https://api.openfigi.com/v3
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+      - label: Mapping Jobs Per Request
+        description: Maximum mapping jobs per request (anonymous)
+        name: mapping_jobs_per_request
+        type: quota
+        metric: jobs_per_request
+        limit: 10
+        unit: 1
+        price: '0.00'
+      - label: Search Requests
+        description: POST /v3/search and /v3/filter calls (anonymous)
+        name: search_requests
+        type: rate
+        metric: requests_per_minute
+        limit: 5
+        timeFrame: minute
+        geo: global
+        domains:
+          - https://api.openfigi.com/v3
+        unit: 1
+        price: '0.00'
+    elements:
+      - name: OpenFIGI Mapping API
+      - name: OpenFIGI Search API
+      - name: OpenFIGI Filter API
+      - name: Public Documentation
+  - id: openfigi-api-key
+    name: OpenFIGI API Key
+    type: free
+    description: >-
+      Free OpenFIGI tier with a registered API key. Lifts request and per-request
+      job ceilings substantially over anonymous use. Signup via openfigi.com.
+    signupUrl: https://www.openfigi.com/user/signup
+    entries:
+      - label: Mapping Requests
+        description: POST /v3/mapping with X-OPENFIGI-APIKEY header
+        name: mapping_requests
+        type: rate
+        metric: requests_per_six_seconds
+        limit: 25
+        timeFrame: 6s
+        geo: global
+        domains:
+          - https://api.openfigi.com/v3
+        unit: 1
+        price: '0.00'
+      - label: Mapping Jobs Per Request
+        description: Maximum mapping jobs per request (authenticated)
+        name: mapping_jobs_per_request
+        type: quota
+        metric: jobs_per_request
+        limit: 100
+        unit: 1
+        price: '0.00'
+      - label: Search Requests
+        description: POST /v3/search and /v3/filter calls (authenticated)
+        name: search_requests
+        type: rate
+        metric: requests_per_minute
+        limit: 20
+        timeFrame: minute
+        geo: global
+        domains:
+          - https://api.openfigi.com/v3
+        unit: 1
+        price: '0.00'
+      - label: Result Cap
+        description: Maximum records returned per search or filter query
+        name: result_cap
+        type: quota
+        metric: records_per_query
+        limit: 15000
+        unit: 1
+        price: '0.00'
+    elements:
+      - name: OpenFIGI Mapping API
+      - name: OpenFIGI Search API
+      - name: OpenFIGI Filter API
+      - name: Higher Rate Limits
+      - name: 100 Jobs Per Mapping Request
+  - id: bloomberg-terminal
+    name: Bloomberg Terminal (Entitlement Host For BLPAPI Desktop)
+    type: commercial
+    description: >-
+      Bloomberg Terminal subscription, the entitlement host for the Desktop
+      BLPAPI. Bloomberg does not publish list pricing; engage Bloomberg Sales
+      directly via the Professional contact menu. Industry-reported pricing is
+      typically tens of thousands of US dollars per user per year.
+    contactUrl: https://www.bloomberg.com/professional/contact-menu/
+    pricingUrl: https://www.bloomberg.com/professional/pricing/
+    entries:
+      - label: Terminal Subscription
+        description: Per-user Bloomberg Terminal subscription (custom-quoted)
+        name: terminal_subscription
+        type: subscription
+        metric: user_per_year
+        unit: 1
+        price: contact-sales
+        currency: USD
+        timeFrame: year
+        userMultiplied: true
+    elements:
+      - name: Bloomberg Terminal
+      - name: BLPAPI Desktop API
+      - name: Real-Time Market Data
+      - name: Historical Data
+      - name: Bloomberg News
+      - name: Trading And Messaging
+  - id: bloomberg-server-api
+    name: Bloomberg Server API (SAPI)
+    type: commercial
+    description: >-
+      Server-side BLPAPI deployment serving multiple in-house applications from
+      one Terminal entitlement. Quoted by Bloomberg Sales.
+    contactUrl: https://www.bloomberg.com/professional/contact-menu/
+    elements:
+      - name: BLPAPI SDKs (C++, Java, Python, .NET)
+      - name: Real-Time Market Data Subscriptions
+      - name: Historical Data Requests
+      - name: Reference Data Requests
+  - id: bloomberg-b-pipe
+    name: Bloomberg B-PIPE
+    type: commercial
+    description: >-
+      Enterprise market data feed (hosted or Managed B-PIPE) with Bloomberg
+      entitlement and identifier infrastructure. Custom-quoted by Bloomberg.
+    contactUrl: https://www.bloomberg.com/professional/contact-menu/
+    elements:
+      - name: Normalized Real-Time Market Data
+      - name: Multi-Asset Coverage
+      - name: Bloomberg Entitlements
+      - name: Managed Or Bloomberg-Hosted Delivery
+  - id: bloomberg-data-license
+    name: Bloomberg Data License (BEAP / HAPI)
+    type: commercial
+    description: >-
+      Bulk reference, pricing, regulatory, and alternative-data delivery via
+      REST (HAPI / Bloomberg Enterprise Access Point), SFTP, or cloud. Covers
+      50M+ securities and 30,000+ fields. Custom-quoted.
+    contactUrl: https://www.bloomberg.com/professional/contact-menu/
+    elements:
+      - name: REST / HAPI Delivery
+      - name: SFTP Delivery
+      - name: Cloud Delivery (AWS, Azure, GCP)
+      - name: Reference, Pricing, Regulatory, Alternative Data
+notes:
+  - Bloomberg does not publish list prices for Terminal, BLPAPI, B-PIPE, or Data License; all are quoted via Bloomberg Sales.
+  - OpenFIGI is documented as "free and open to the public" with rate limits that are lifted by registering for a free API key.
+  - Bloomberg /v2 API endpoints are deprecated with a sunset date of July 1, 2026.

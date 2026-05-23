@@ -1,0 +1,69 @@
+extends: ["spectral:oas"]
+rules:
+  openfigi-operation-summary-title-case:
+    description: Operation summaries must use Title Case across the OpenFIGI API.
+    severity: warn
+    given: "$.paths.*.*.summary"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^([A-Z][a-zA-Z0-9'/-]*)( ([A-Z][a-zA-Z0-9'/-]*|For|To|And|Or|The|A|An|With|In|Of|On|By))*$"
+  openfigi-operation-id-camel-case:
+    description: Operation IDs should be lowerCamelCase verbs (e.g. mapIdentifiers).
+    severity: error
+    given: "$.paths.*.*.operationId"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[a-z][a-zA-Z0-9]+$"
+  openfigi-path-versioned:
+    description: All paths should be hosted under the /v3 server, not include /v3 in the path itself.
+    severity: warn
+    given: "$.paths"
+    then:
+      field: "@key"
+      function: pattern
+      functionOptions:
+        notMatch: "^/v[0-9]+/"
+  openfigi-tag-title-case:
+    description: Tags must be Title Case.
+    severity: warn
+    given: "$.tags[*].name"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[A-Z][a-zA-Z0-9]*( [A-Z][a-zA-Z0-9]*)*$"
+  openfigi-server-https:
+    description: Servers must use HTTPS only.
+    severity: error
+    given: "$.servers[*].url"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^https://"
+  openfigi-apikey-header-name:
+    description: The OpenFIGI API key header is X-OPENFIGI-APIKEY.
+    severity: error
+    given: "$.components.securitySchemes[?(@.type == 'apiKey')]"
+    then:
+      field: name
+      function: pattern
+      functionOptions:
+        match: "^X-OPENFIGI-APIKEY$"
+  openfigi-error-responses-required:
+    description: Every operation must document at least 400, 429, and 5xx responses.
+    severity: warn
+    given: "$.paths.*.*.responses"
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+          required: ["400", "429"]
+  openfigi-figi-pattern:
+    description: FIGI string properties should declare the BBG[A-Z0-9]{9} pattern.
+    severity: info
+    given: "$.components.schemas.FigiRecord.properties.figi"
+    then:
+      field: pattern
+      function: truthy

@@ -1,0 +1,12 @@
+[
+  {
+    "idType": "TICKER",
+    "idValue": "IBM",
+    "exchCode": "US"
+  },
+  {
+    "idType": "TICKER",
+    "idValue": "AAPL",
+    "exchCode": "US"
+  }
+]

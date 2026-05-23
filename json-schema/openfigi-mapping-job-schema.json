@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/bloomberg-lp/main/json-schema/openfigi-mapping-job-schema.json",
+  "title": "OpenFIGI Mapping Job",
+  "description": "A single mapping request submitted in the array body of POST /v3/mapping.",
+  "type": "object",
+  "required": ["idType", "idValue"],
+  "properties": {
+    "idType": {
+      "type": "string",
+      "enum": [
+        "ID_ISIN",
+        "ID_BB_UNIQUE",
+        "ID_SEDOL",
+        "ID_COMMON",
+        "ID_WERTPAPIER",
+        "ID_CUSIP",
+        "ID_BB",
+        "ID_ITALY",
+        "ID_EXCH_SYMBOL",
+        "ID_FULL_EXCHANGE_SYMBOL",
+        "COMPOSITE_ID_BB_GLOBAL",
+        "ID_BB_GLOBAL_SHARE_CLASS_LEVEL",
+        "ID_BB_SEC_NUM_DES",
+        "ID_BB_GLOBAL",
+        "TICKER",
+        "BASE_TICKER",
+        "ID_CUSIP_8_CHR",
+        "OCC_SYMBOL",
+        "UNIQUE_ID_FUT_OPT",
+        "OPRA_SYMBOL",
+        "TRADING_SYSTEM_IDENTIFIER",
+        "ID_CINS",
+        "ID_BB_PROP",
+        "VENDOR_INDEX_CODE"
+      ]
+    },
+    "idValue": {
+      "type": "string",
+      "minLength": 1
+    },
+    "exchCode": {"type": "string"},
+    "micCode": {"type": "string"},
+    "currency": {"type": "string"},
+    "marketSecDes": {"type": "string"},
+    "securityType": {"type": "string"},
+    "securityType2": {"type": "string"},
+    "includeUnlistedEquities": {"type": "boolean"},
+    "optionType": {"type": "string", "enum": ["Call", "Put"]},
+    "strike": {
+      "type": "array",
+      "items": {"type": ["number", "null"]},
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "contractSize": {
+      "type": "array",
+      "items": {"type": ["number", "null"]},
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "coupon": {
+      "type": "array",
+      "items": {"type": ["number", "null"]},
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "expiration": {
+      "type": "array",
+      "items": {"type": ["string", "null"], "format": "date"},
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "maturity": {
+      "type": "array",
+      "items": {"type": ["string", "null"], "format": "date"},
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "stateCode": {"type": "string"}
+  },
+  "additionalProperties": false
+}

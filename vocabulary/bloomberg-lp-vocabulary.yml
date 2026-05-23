@@ -1,0 +1,98 @@
+aid: bloomberg-lp-vocabulary
+name: Bloomberg L.P. Vocabulary
+description: >-
+  Domain vocabulary covering Bloomberg L.P.'s developer surfaces — primarily
+  the OpenFIGI symbology API, the BLPAPI family (Desktop API, Server API,
+  B-PIPE, Data License), and the underlying financial-instrument concepts used
+  across Bloomberg products.
+version: '0.1.0'
+modified: '2026-05-23'
+terms:
+  - term: FIGI
+    label: Financial Instrument Global Identifier
+    definition: >-
+      A 12-character, alphanumeric, randomly generated identifier for a
+      financial instrument, managed under the OMG FIGI standard with Bloomberg
+      acting as Registration Authority. Once assigned, a FIGI never changes.
+    pattern: '^BBG[A-Z0-9]{9}$'
+    source: https://www.openfigi.com/about/figi
+  - term: CompositeFIGI
+    label: Composite FIGI
+    definition: >-
+      A country-level FIGI that groups one or more venue-specific FIGIs for the
+      same instrument trading on different exchanges within a country.
+    source: https://www.openfigi.com/about/figi
+  - term: ShareClassFIGI
+    label: Share Class FIGI
+    definition: >-
+      A share-class FIGI that groups composite FIGIs for the same share class
+      across countries.
+    source: https://www.openfigi.com/about/figi
+  - term: MarketSector
+    label: Bloomberg Market Sector
+    definition: >-
+      Top-level Bloomberg classification of an instrument. Valid values are
+      Equity, Comdty, Govt, Corp, Index, Curncy, Pfd, Muni, M-Mkt.
+    source: https://www.openfigi.com/api/documentation
+  - term: SecurityType
+    label: Security Type
+    definition: Bloomberg's primary security classification (e.g. Common Stock, Future, Option, Bill, Bond).
+    source: https://www.openfigi.com/api/documentation
+  - term: SecurityType2
+    label: Security Type 2
+    definition: Secondary, finer-grained Bloomberg security classification.
+  - term: IdType
+    label: Identifier Type
+    definition: >-
+      Third-party identifier type accepted by the OpenFIGI /v3/mapping endpoint,
+      including TICKER, ID_ISIN, ID_CUSIP, ID_SEDOL, ID_BB_GLOBAL, OCC_SYMBOL,
+      OPRA_SYMBOL, and others.
+  - term: ExchCode
+    label: Exchange Code
+    definition: Bloomberg exchange composite code (e.g. US, LN, GR, JP).
+  - term: MICCode
+    label: Market Identifier Code
+    definition: ISO 10383 venue identifier.
+  - term: BLPAPI
+    label: Bloomberg API
+    definition: >-
+      Bloomberg's unified programming interface across Desktop API, Server API,
+      B-PIPE, and Platform products, with SDKs in C++, Java, Python, and .NET.
+    source: https://bloomberg.github.io/blpapi-docs/
+  - term: DesktopAPI
+    label: Bloomberg Desktop API
+    definition: >-
+      BLPAPI deployment tied to a single Bloomberg Terminal user, used by
+      desktop applications and personal scripts running on the same machine.
+  - term: ServerAPI
+    label: Bloomberg Server API
+    definition: >-
+      Server-side BLPAPI deployment that lets a Terminal user serve real-time,
+      historical, and reference data to multiple in-house applications.
+    source: https://www.bloomberg.com/professional/products/data/data-connectivity/server-api/
+  - term: BPIPE
+    label: B-PIPE
+    definition: >-
+      Bloomberg Professional Information Pipeline — Bloomberg's enterprise
+      market data feed, available as hosted or Managed B-PIPE.
+  - term: DataLicense
+    label: Bloomberg Data License
+    definition: >-
+      Bulk reference, pricing, regulatory, and alternative-data delivery
+      product covering 50M+ securities and 30,000+ fields, accessible via REST,
+      SFTP, or cloud delivery.
+    source: https://www.bloomberg.com/professional/products/data/data-management/data-license/
+  - term: BloombergTerminal
+    label: Bloomberg Terminal
+    definition: >-
+      Bloomberg's flagship subscription product, delivering real-time data,
+      news, analytics, trading, and messaging to financial professionals.
+  - term: BloombergNews
+    label: Bloomberg News
+    definition: Bloomberg's editorial newsroom and content surface.
+  - term: OpenFIGI
+    label: OpenFIGI
+    definition: >-
+      Bloomberg's free public API and portal for the FIGI standard, run as
+      Registration Authority for the OMG FIGI specification.
+    source: https://www.openfigi.com/

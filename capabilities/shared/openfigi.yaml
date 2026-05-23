@@ -1,0 +1,72 @@
+apiVersion: naftiko.io/v1alpha1
+kind: Capability
+metadata:
+  name: openfigi
+  title: OpenFIGI Symbology
+  provider: bloomberg-lp
+  api: openfigi
+  description: >-
+    Map third-party financial identifiers (TICKER, ISIN, CUSIP, SEDOL, etc.)
+    to FIGIs, and search or filter the global FIGI universe via the OpenFIGI
+    public API.
+  tags:
+    - Symbology
+    - Reference Data
+    - FIGI
+    - Bloomberg
+spec:
+  baseUrl: https://api.openfigi.com/v3
+  auth:
+    type: apiKey
+    in: header
+    name: X-OPENFIGI-APIKEY
+    optional: true
+  operations:
+    - id: mapIdentifiers
+      title: Map Third-Party Identifiers To FIGIs
+      method: POST
+      path: /mapping
+      summary: Submit an array of (idType, idValue) jobs and receive matched FIGI records.
+      inputs:
+        - name: jobs
+          required: true
+          schema: ../../json-schema/openfigi-mapping-job-schema.json
+      outputs:
+        - name: results
+          schema: ../../json-schema/openfigi-figi-record-schema.json
+      examples:
+        - request: ../../examples/openfigi-mapping-ticker-request-example.json
+          response: ../../examples/openfigi-mapping-ticker-response-example.json
+        - request: ../../examples/openfigi-mapping-isin-request-example.json
+          response: ../../examples/openfigi-mapping-isin-response-example.json
+    - id: listMappingValues
+      title: List Enumerated Values For A Mapping Field
+      method: GET
+      path: /mapping/values/{key}
+      summary: Retrieve the valid enum values for a mapping field such as idType or exchCode.
+    - id: searchFigis
+      title: Keyword-Search The FIGI Universe
+      method: POST
+      path: /search
+      summary: Free-text plus filter search across the FIGI universe with cursor pagination.
+      examples:
+        - request: ../../examples/openfigi-search-request-example.json
+          response: ../../examples/openfigi-search-response-example.json
+    - id: filterFigis
+      title: Filter The FIGI Universe With Result Counts
+      method: POST
+      path: /filter
+      summary: Filtered search returning records sorted by FIGI plus a total count.
+      examples:
+        - request: ../../examples/openfigi-filter-request-example.json
+          response: ../../examples/openfigi-filter-response-example.json
+  rateLimits:
+    - operation: mapIdentifiers
+      unauthenticated: 25 requests per minute, 10 jobs per request
+      authenticated: 25 requests per 6 seconds, 100 jobs per request
+    - operation: searchFigis
+      unauthenticated: 5 requests per minute
+      authenticated: 20 requests per minute
+    - operation: filterFigis
+      unauthenticated: 5 requests per minute
+      authenticated: 20 requests per minute

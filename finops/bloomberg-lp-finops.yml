@@ -1,0 +1,110 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+provider: Bloomberg L.P.
+providerId: bloomberg-lp
+publisherName: Bloomberg L.P.
+serviceCategory: API
+created: '2026-05-23'
+modified: '2026-05-23'
+tags:
+  - Financial Services
+  - Market Data
+  - Reference Data
+  - FinOps
+  - Cost Management
+  - FOCUS
+description: >-
+  FinOps framework definition for Bloomberg L.P.'s developer and data surfaces.
+  Captures cost-allocation, usage-measurement, and unit-economics guidance
+  across two very different commercial models: the free OpenFIGI public API
+  and the seat- and contract-based BLPAPI / Terminal / B-PIPE / Data License
+  product family.
+principles:
+  - name: Visibility
+    description: >-
+      Surface Bloomberg Terminal seat counts, B-PIPE subscription counts, and
+      Data License extract sizes to engineering, product, research, and finance
+      teams alongside OpenFIGI API request volumes.
+  - name: Allocation
+    description: >-
+      Tag every Terminal seat, BLPAPI session, B-PIPE subscription, Data
+      License extract, and OpenFIGI API key with the consuming team, desk,
+      environment, and use case so cost can be charged back.
+  - name: Optimization
+    description: >-
+      Continuously evaluate batching of OpenFIGI mapping jobs, caching of
+      reference data, sizing of Terminal seats, and right-sizing of B-PIPE
+      subscriptions and Data License extracts.
+  - name: Accountability
+    description: >-
+      Establish budget owners for each Bloomberg contract line item (Terminal
+      seats, SAPI, B-PIPE, Data License) and showback or chargeback the OpenFIGI
+      tier through the platform team that holds the API key.
+domains:
+  - name: Understand Usage and Cost
+    capabilities:
+      - Data Ingestion
+      - Allocation
+      - Reporting and Analytics
+      - Anomaly Management
+  - name: Quantify Business Value
+    capabilities:
+      - Planning and Estimating
+      - Forecasting
+      - Budgeting
+      - Benchmarking
+      - Unit Economics
+  - name: Optimize Usage and Cost
+    capabilities:
+      - Architecting for Cloud
+      - Rate Optimization
+      - Workload Optimization
+      - Licensing and SaaS
+  - name: Manage the FinOps Practice
+    capabilities:
+      - FinOps Practice Operations
+      - FinOps Education and Enablement
+      - Invoicing and Chargeback
+      - Onboarding Workloads
+focusMappings:
+  - focusColumn: ServiceCategory
+    value: API
+  - focusColumn: ServiceName
+    values:
+      - OpenFIGI
+      - Bloomberg Terminal
+      - Bloomberg BLPAPI Desktop API
+      - Bloomberg Server API (SAPI)
+      - Bloomberg B-PIPE
+      - Bloomberg Data License
+  - focusColumn: ProviderName
+    value: Bloomberg L.P.
+  - focusColumn: BillingCurrency
+    value: USD
+  - focusColumn: PricingUnit
+    notes: >-
+      OpenFIGI: 0.00 USD (free). Terminal: per-seat per-year (custom-quoted).
+      B-PIPE: per-subscription per-month (custom-quoted). Data License: per-field
+      and per-security extract (custom-quoted).
+  - focusColumn: ChargeCategory
+    values:
+      - Usage
+      - Subscription
+unitEconomics:
+  - metric: cost_per_figi_lookup
+    description: Cost per FIGI lookup is zero on OpenFIGI; track for downstream cache hit ratios and API-key throughput utilization.
+  - metric: cost_per_terminal_seat
+    description: Annualized cost of one Bloomberg Terminal seat, used for seat-utilization analyses.
+  - metric: cost_per_real_time_subscription
+    description: B-PIPE per-subscription monthly cost, used for subscription-pruning workflows.
+  - metric: cost_per_data_license_field
+    description: Per-field per-security cost on Data License extracts, used for field-set rationalization.
+notes:
+  - Bloomberg does not publish list pricing for Terminal, BLPAPI, B-PIPE, or Data License; FinOps reporting must derive unit costs from negotiated contract values.
+  - OpenFIGI is documented as "free and open to the public" and therefore contributes zero direct API cost, but does carry rate-limit risk that should be tracked.

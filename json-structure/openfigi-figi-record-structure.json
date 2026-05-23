@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-structure.org/draft-00/",
+  "name": "FigiRecord",
+  "description": "Stable JSON Structure for a Financial Instrument Global Identifier record as returned by the OpenFIGI API.",
+  "type": "object",
+  "properties": {
+    "figi": {"type": "string"},
+    "name": {"type": "string"},
+    "ticker": {"type": "string"},
+    "exchCode": {"type": "string"},
+    "compositeFIGI": {"type": "string"},
+    "securityType": {"type": "string"},
+    "marketSector": {"type": "string"},
+    "shareClassFIGI": {"type": "string"},
+    "uniqueIDFutOpt": {"type": "string"},
+    "securityType2": {"type": "string"},
+    "securityDescription": {"type": "string"},
+    "metadata": {"type": "string"}
+  },
+  "required": ["figi"]
+}

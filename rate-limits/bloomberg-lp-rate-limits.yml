@@ -1,0 +1,99 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Bloomberg L.P.
+providerId: bloomberg-lp
+created: '2026-05-23'
+modified: '2026-05-23'
+tags:
+  - Financial Services
+  - Symbology
+  - Reference Data
+  - Rate Limiting
+  - Quotas
+  - Throttling
+description: >-
+  Rate-limit definitions for Bloomberg L.P.'s public developer surfaces. The
+  authoritative tier is OpenFIGI, which publishes per-IP (anonymous) and
+  per-API-key ceilings on the /v3 mapping, search, and filter endpoints. BLPAPI
+  enforces entitlement-driven limits negotiated through Bloomberg Sales rather
+  than per-key REST quotas, and is documented here as informational.
+headers:
+  limit: ratelimit-limit
+  remaining: ratelimit-remaining
+  reset: ratelimit-reset
+  retryAfter: Retry-After
+responseCodes:
+  throttled: 429
+  quotaExceeded: 429
+  serviceUnavailable: 503
+limits:
+  - tier: openfigi-anonymous
+    name: OpenFIGI Anonymous Mapping
+    scope: ip
+    metric: requests_per_minute
+    limit: 25
+    timeFrame: minute
+    applies:
+      - POST /v3/mapping
+    notes: Max 10 mapping jobs per request when anonymous.
+  - tier: openfigi-anonymous
+    name: OpenFIGI Anonymous Search/Filter
+    scope: ip
+    metric: requests_per_minute
+    limit: 5
+    timeFrame: minute
+    applies:
+      - POST /v3/search
+      - POST /v3/filter
+    notes: Result cap is 15,000 records per query.
+  - tier: openfigi-apikey
+    name: OpenFIGI API-Key Mapping
+    scope: api-key
+    metric: requests_per_six_seconds
+    limit: 25
+    timeFrame: 6s
+    applies:
+      - POST /v3/mapping
+    notes: Max 100 mapping jobs per request when authenticated.
+  - tier: openfigi-apikey
+    name: OpenFIGI API-Key Search/Filter
+    scope: api-key
+    metric: requests_per_minute
+    limit: 20
+    timeFrame: minute
+    applies:
+      - POST /v3/search
+      - POST /v3/filter
+    notes: Result cap is 15,000 records per query.
+  - tier: blpapi-desktop
+    name: BLPAPI Desktop API
+    scope: terminal-user
+    metric: events_per_second
+    limit: contract-defined
+    applies:
+      - //blp/refdata
+      - //blp/mktdata
+      - //blp/apiflds
+      - //blp/instruments
+    notes: >-
+      Desktop BLPAPI throughput is governed by the Terminal user's entitlements
+      and product (Reference Data, Historical, Intraday, Market Data) rather
+      than published per-key REST limits.
+  - tier: blpapi-server-bpipe
+    name: BLPAPI Server API / B-PIPE
+    scope: enterprise-contract
+    metric: subscriptions_and_requests
+    limit: contract-defined
+    applies:
+      - Bloomberg Server API (SAPI)
+      - Bloomberg B-PIPE
+      - Bloomberg Data License
+    notes: Subscription counts, request throughput, and concurrency are sized per the enterprise agreement.
+recovery:
+  - condition: 429
+    strategy: >-
+      Honour the ratelimit-reset / Retry-After header and back off. For OpenFIGI,
+      acquiring a free API key is the documented path to higher ceilings.
+  - condition: 503
+    strategy: Retry with exponential backoff; OpenFIGI publishes ratelimit headers on all responses.

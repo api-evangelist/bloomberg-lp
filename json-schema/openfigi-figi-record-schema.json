@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/bloomberg-lp/main/json-schema/openfigi-figi-record-schema.json",
+  "title": "FIGI Record",
+  "description": "A single Financial Instrument Global Identifier (FIGI) record as returned by the OpenFIGI /v3/mapping, /v3/search, and /v3/filter endpoints.",
+  "type": "object",
+  "required": ["figi"],
+  "properties": {
+    "figi": {
+      "type": "string",
+      "description": "The 12-character alphanumeric Financial Instrument Global Identifier.",
+      "pattern": "^BBG[A-Z0-9]{9}$",
+      "example": "BBG000BLNNH6"
+    },
+    "name": {
+      "type": "string",
+      "description": "Long name of the instrument."
+    },
+    "ticker": {
+      "type": "string",
+      "description": "Exchange ticker symbol."
+    },
+    "exchCode": {
+      "type": "string",
+      "description": "Bloomberg exchange composite code (e.g. US, LN, GR)."
+    },
+    "compositeFIGI": {
+      "type": ["string", "null"],
+      "description": "Country-level composite FIGI for this instrument."
+    },
+    "uniqueID": {
+      "type": ["string", "null"],
+      "description": "Bloomberg unique ID (Bloomberg internal).",
+      "deprecated": true
+    },
+    "securityType": {
+      "type": "string",
+      "description": "Bloomberg security type (e.g. Common Stock, Future, Option)."
+    },
+    "marketSector": {
+      "type": "string",
+      "description": "Bloomberg market sector.",
+      "enum": ["Comdty", "Corp", "Curncy", "Equity", "Govt", "Index", "M-Mkt", "Muni", "Pfd"]
+    },
+    "shareClassFIGI": {
+      "type": ["string", "null"],
+      "description": "Share-class FIGI that groups composite FIGIs across markets."
+    },
+    "uniqueIDFutOpt": {
+      "type": ["string", "null"],
+      "description": "Bloomberg unique ID for futures and options."
+    },
+    "securityType2": {
+      "type": "string",
+      "description": "Secondary, more specific security classification."
+    },
+    "securityDescription": {
+      "type": "string",
+      "description": "Short security description as Bloomberg prints it."
+    },
+    "metadata": {
+      "type": ["string", "null"],
+      "description": "Free-form metadata, when provided."
+    }
+  },
+  "additionalProperties": false
+}

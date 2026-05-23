@@ -1,0 +1,39 @@
+apiVersion: naftiko.io/v1alpha1
+kind: Capability
+metadata:
+  name: symbology-resolution
+  title: Cross-Vendor Symbology Resolution Workflow
+  provider: bloomberg-lp
+  description: >-
+    End-to-end workflow that normalises a mixed bag of external identifiers
+    (broker tickers, ISINs, CUSIPs, SEDOLs) into stable FIGIs that can be used
+    as join keys across portfolio, risk, and accounting systems.
+  tags:
+    - Symbology
+    - FIGI
+    - Reference Data
+    - Workflow
+spec:
+  composes:
+    - capability: openfigi
+      operation: listMappingValues
+      role: introspect-id-types
+      notes: Cache valid idType, exchCode, currency, and marketSecDes enums on startup.
+    - capability: openfigi
+      operation: mapIdentifiers
+      role: batch-map
+      notes: Send up to 100 jobs per request when an API key is configured; otherwise 10.
+    - capability: openfigi
+      operation: searchFigis
+      role: name-fallback
+      notes: When mapping returns a "No identifier found" warning, fall back to a name-based search.
+  guarantees:
+    - id: stable-key
+      description: Returned FIGIs are permanent and safe to persist as long-lived join keys.
+    - id: cross-asset
+      description: Coverage spans equities, fixed income, derivatives, FX, commodities, indices, and crypto.
+  failureModes:
+    - code: warning_no_identifier_found
+      handling: Treat as miss; optionally fall back to /v3/search by name.
+    - code: rate_limit_exceeded
+      handling: Honour ratelimit-reset header; back off and retry. Acquire an API key to lift the ceiling.
