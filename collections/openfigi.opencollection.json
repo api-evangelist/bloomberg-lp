@@ -1,0 +1,106 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "OpenFIGI API",
+    "version": "3.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Mapping",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Map Third-Party Identifiers To FIGIs",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.openfigi.com/v3/mapping",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Map one or more third-party identifiers (ticker, ISIN, CUSIP, SEDOL,\nBloomberg Global ID, etc.) to FIGI records. The request body is a JSON\narray of mapping jobs. Each job is processed independently and returns\neither matched data, a warning (no match), or an error.\n\nWithout an API key: 25 requests/minute, up to 10 jobs per request.\nWith an API key: 25 requests/6 seconds, up to 100 jobs per request.\n"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Reference",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Enumerated Values For A Mapping Field",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.openfigi.com/v3/mapping/values/:key",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "The mapping field to enumerate."
+              }
+            ]
+          },
+          "docs": "Return the list of valid values for an enum-like mapping field such as\n`idType`, `exchCode`, `currency`, `securityType`, `securityType2`,\n`marketSecDes`, `micCode`, or `stateCode`.\n"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Search",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Keyword-Search The FIGI Universe",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.openfigi.com/v3/search",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search across the FIGI universe by free-text query plus optional\nfilters such as exchCode, currency, securityType, marketSecDes, and\ndate ranges. Results are paginated with the opaque `start` cursor\nreturned in the previous response.\n\nWithout an API key: 5 requests/minute. With an API key: 20 requests/minute.\nResults are capped at 15,000 records per query.\n"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Filter",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Filter The FIGI Universe With Result Counts",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.openfigi.com/v3/filter",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Filter the FIGI universe with optional keyword query, returning results\nsorted alphabetically by FIGI plus a `total` count of matches. Useful\nfor inventorying a population of securities matching a set of criteria.\n\nWithout an API key: 5 requests/minute. With an API key: 20 requests/minute.\nResults are capped at 15,000 records per query.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

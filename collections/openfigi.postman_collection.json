@@ -1,0 +1,1055 @@
+{
+  "item": [
+    {
+      "id": "37851958-a1ff-436a-a760-fa31d3b6dae1",
+      "name": "Mapping",
+      "description": {
+        "content": "Map third-party identifiers to FIGIs.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c9920f17-b7e6-4f93-b9a2-d92c57cfd26c",
+          "name": "Map Third-Party Identifiers To FIGIs",
+          "request": {
+            "name": "Map Third-Party Identifiers To FIGIs",
+            "description": {
+              "content": "Map one or more third-party identifiers (ticker, ISIN, CUSIP, SEDOL,\nBloomberg Global ID, etc.) to FIGI records. The request body is a JSON\narray of mapping jobs. Each job is processed independently and returns\neither matched data, a warning (no match), or an error.\n\nWithout an API key: 25 requests/minute, up to 10 jobs per request.\nWith an API key: 25 requests/6 seconds, up to 100 jobs per request.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "mapping"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"idType\": \"<string>\",\n    \"idValue\": \"<string>\",\n    \"exchCode\": \"<string>\",\n    \"micCode\": \"<string>\",\n    \"currency\": \"<string>\",\n    \"marketSecDes\": \"<string>\",\n    \"securityType\": \"<string>\",\n    \"securityType2\": \"<string>\",\n    \"includeUnlistedEquities\": \"<boolean>\",\n    \"optionType\": \"<string>\",\n    \"strike\": [\n      \"<number>\",\n      \"<number>\"\n    ],\n    \"contractSize\": [\n      \"<number>\",\n      \"<number>\"\n    ],\n    \"coupon\": [\n      \"<number>\",\n      \"<number>\"\n    ],\n    \"expiration\": [\n      \"<date>\",\n      \"<date>\"\n    ],\n    \"maturity\": [\n      \"<date>\",\n      \"<date>\"\n    ],\n    \"stateCode\": \"<string>\"\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "07a4872f-0097-4159-ac6a-1d9ec6fbf1f1",
+              "name": "Per-job mapping results, in the same order as the request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mapping"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"idType\": \"TICKER\",\n    \"idValue\": \"IBM\",\n    \"exchCode\": \"US\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Limit",
+                  "value": "4355",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Remaining",
+                  "value": "4355",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Reset",
+                  "value": "4355",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"data\": [\n      {\n        \"figi\": \"BBG000BLNNH6\",\n        \"name\": \"INTL BUSINESS MACHINES CORP\",\n        \"ticker\": \"IBM\",\n        \"exchCode\": \"US\",\n        \"compositeFIGI\": \"BBG000BLNNH6\",\n        \"securityType\": \"Common Stock\",\n        \"marketSector\": \"Equity\",\n        \"shareClassFIGI\": \"BBG001S5S399\",\n        \"securityType2\": \"Common Stock\",\n        \"securityDescription\": \"IBM\"\n      }\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "59334813-658c-409b-b205-c09369d16d90",
+              "name": "Malformed request (validation failed, schema mismatch, etc.).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mapping"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"idType\": \"TICKER\",\n    \"idValue\": \"IBM\",\n    \"exchCode\": \"US\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "034c6fe6-7954-4bad-82fb-6c0550b20f46",
+              "name": "Invalid X-OPENFIGI-APIKEY.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mapping"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"idType\": \"TICKER\",\n    \"idValue\": \"IBM\",\n    \"exchCode\": \"US\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b4d8fcdd-6f91-49de-a1f8-21d11ef6a381",
+              "name": "Rate limit exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mapping"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"idType\": \"TICKER\",\n    \"idValue\": \"IBM\",\n    \"exchCode\": \"US\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e3f4714c-47d0-45b8-8b4d-9900099d8191",
+              "name": "Internal server error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mapping"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"idType\": \"TICKER\",\n    \"idValue\": \"IBM\",\n    \"exchCode\": \"US\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b54de7c5-7301-40ad-a2c7-cec3ec244a8d",
+              "name": "Service temporarily unavailable.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mapping"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"idType\": \"TICKER\",\n    \"idValue\": \"IBM\",\n    \"exchCode\": \"US\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "f487e098-b4e1-403f-8f95-ddd9b134dffd",
+      "name": "Search",
+      "description": {
+        "content": "Keyword search across the FIGI universe.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "bc66e502-87c3-4190-9643-abdacfdcde33",
+          "name": "Keyword-Search The FIGI Universe",
+          "request": {
+            "name": "Keyword-Search The FIGI Universe",
+            "description": {
+              "content": "Search across the FIGI universe by free-text query plus optional\nfilters such as exchCode, currency, securityType, marketSecDes, and\ndate ranges. Results are paginated with the opaque `start` cursor\nreturned in the previous response.\n\nWithout an API key: 5 requests/minute. With an API key: 20 requests/minute.\nResults are capped at 15,000 records per query.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"<string>\",\n  \"exchCode\": \"<string>\",\n  \"micCode\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"marketSecDes\": \"<string>\",\n  \"securityType\": \"<string>\",\n  \"securityType2\": \"<string>\",\n  \"includeUnlistedEquities\": \"<boolean>\",\n  \"start\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a10e4f35-9973-4b7f-9a8f-81556e28b7ce",
+              "name": "Search results.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"<string>\",\n  \"exchCode\": \"<string>\",\n  \"micCode\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"marketSecDes\": \"<string>\",\n  \"securityType\": \"<string>\",\n  \"securityType2\": \"<string>\",\n  \"includeUnlistedEquities\": \"<boolean>\",\n  \"start\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"figi\": \"BBG000BLNNH6\",\n      \"name\": \"string\",\n      \"ticker\": \"string\",\n      \"exchCode\": \"string\",\n      \"compositeFIGI\": \"string\",\n      \"uniqueID\": \"string\",\n      \"securityType\": \"string\",\n      \"marketSector\": \"string\",\n      \"shareClassFIGI\": \"string\",\n      \"uniqueIDFutOpt\": \"string\",\n      \"securityType2\": \"string\",\n      \"securityDescription\": \"string\",\n      \"metadata\": \"string\"\n    },\n    {\n      \"figi\": \"BBG000BLNNH6\",\n      \"name\": \"string\",\n      \"ticker\": \"string\",\n      \"exchCode\": \"string\",\n      \"compositeFIGI\": \"string\",\n      \"uniqueID\": \"string\",\n      \"securityType\": \"string\",\n      \"marketSector\": \"string\",\n      \"shareClassFIGI\": \"string\",\n      \"uniqueIDFutOpt\": \"string\",\n      \"securityType2\": \"string\",\n      \"securityDescription\": \"string\",\n      \"metadata\": \"string\"\n    }\n  ],\n  \"next\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9e8d9b48-15f4-48f2-b289-31ff96b3e08e",
+              "name": "Malformed request (validation failed, schema mismatch, etc.).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"<string>\",\n  \"exchCode\": \"<string>\",\n  \"micCode\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"marketSecDes\": \"<string>\",\n  \"securityType\": \"<string>\",\n  \"securityType2\": \"<string>\",\n  \"includeUnlistedEquities\": \"<boolean>\",\n  \"start\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b16513c8-b0f8-4f0e-a6d9-6372eb59b37e",
+              "name": "Invalid X-OPENFIGI-APIKEY.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"<string>\",\n  \"exchCode\": \"<string>\",\n  \"micCode\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"marketSecDes\": \"<string>\",\n  \"securityType\": \"<string>\",\n  \"securityType2\": \"<string>\",\n  \"includeUnlistedEquities\": \"<boolean>\",\n  \"start\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f67447c8-3ea0-457a-a6ea-cfe7c934e268",
+              "name": "Rate limit exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"<string>\",\n  \"exchCode\": \"<string>\",\n  \"micCode\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"marketSecDes\": \"<string>\",\n  \"securityType\": \"<string>\",\n  \"securityType2\": \"<string>\",\n  \"includeUnlistedEquities\": \"<boolean>\",\n  \"start\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a2dab7f8-7eed-4d63-9125-afbe67624eff",
+              "name": "Internal server error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"<string>\",\n  \"exchCode\": \"<string>\",\n  \"micCode\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"marketSecDes\": \"<string>\",\n  \"securityType\": \"<string>\",\n  \"securityType2\": \"<string>\",\n  \"includeUnlistedEquities\": \"<boolean>\",\n  \"start\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "5858b58b-bfad-4ad1-a8fc-912d4ec655ef",
+      "name": "Filter",
+      "description": {
+        "content": "Filtered, paginated search across the FIGI universe.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0204c7d3-5c11-44a2-9bbf-5e5c210e431d",
+          "name": "Filter The FIGI Universe With Result Counts",
+          "request": {
+            "name": "Filter The FIGI Universe With Result Counts",
+            "description": {
+              "content": "Filter the FIGI universe with optional keyword query, returning results\nsorted alphabetically by FIGI plus a `total` count of matches. Useful\nfor inventorying a population of securities matching a set of criteria.\n\nWithout an API key: 5 requests/minute. With an API key: 20 requests/minute.\nResults are capped at 15,000 records per query.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "filter"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"<string>\",\n  \"exchCode\": \"<string>\",\n  \"micCode\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"marketSecDes\": \"<string>\",\n  \"securityType\": \"<string>\",\n  \"securityType2\": \"<string>\",\n  \"includeUnlistedEquities\": \"<boolean>\",\n  \"start\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "04523e03-d919-4589-99f6-9ff078a93d02",
+              "name": "Filter results with total count.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "filter"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"<string>\",\n  \"exchCode\": \"<string>\",\n  \"micCode\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"marketSecDes\": \"<string>\",\n  \"securityType\": \"<string>\",\n  \"securityType2\": \"<string>\",\n  \"includeUnlistedEquities\": \"<boolean>\",\n  \"start\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"figi\": \"BBG000BLNNH6\",\n      \"name\": \"string\",\n      \"ticker\": \"string\",\n      \"exchCode\": \"string\",\n      \"compositeFIGI\": \"string\",\n      \"uniqueID\": \"string\",\n      \"securityType\": \"string\",\n      \"marketSector\": \"string\",\n      \"shareClassFIGI\": \"string\",\n      \"uniqueIDFutOpt\": \"string\",\n      \"securityType2\": \"string\",\n      \"securityDescription\": \"string\",\n      \"metadata\": \"string\"\n    },\n    {\n      \"figi\": \"BBG000BLNNH6\",\n      \"name\": \"string\",\n      \"ticker\": \"string\",\n      \"exchCode\": \"string\",\n      \"compositeFIGI\": \"string\",\n      \"uniqueID\": \"string\",\n      \"securityType\": \"string\",\n      \"marketSector\": \"string\",\n      \"shareClassFIGI\": \"string\",\n      \"uniqueIDFutOpt\": \"string\",\n      \"securityType2\": \"string\",\n      \"securityDescription\": \"string\",\n      \"metadata\": \"string\"\n    }\n  ],\n  \"next\": \"string\",\n  \"total\": 6784\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8b89bdd8-3716-4b73-aafd-8c9d1c476b09",
+              "name": "Malformed request (validation failed, schema mismatch, etc.).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "filter"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"<string>\",\n  \"exchCode\": \"<string>\",\n  \"micCode\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"marketSecDes\": \"<string>\",\n  \"securityType\": \"<string>\",\n  \"securityType2\": \"<string>\",\n  \"includeUnlistedEquities\": \"<boolean>\",\n  \"start\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "953592c0-31b1-4949-97ff-a4ccabcd9906",
+              "name": "Invalid X-OPENFIGI-APIKEY.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "filter"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"<string>\",\n  \"exchCode\": \"<string>\",\n  \"micCode\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"marketSecDes\": \"<string>\",\n  \"securityType\": \"<string>\",\n  \"securityType2\": \"<string>\",\n  \"includeUnlistedEquities\": \"<boolean>\",\n  \"start\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "71dab1f4-dbc3-4f7f-b9aa-2114197802d3",
+              "name": "Rate limit exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "filter"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"<string>\",\n  \"exchCode\": \"<string>\",\n  \"micCode\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"marketSecDes\": \"<string>\",\n  \"securityType\": \"<string>\",\n  \"securityType2\": \"<string>\",\n  \"includeUnlistedEquities\": \"<boolean>\",\n  \"start\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "5565bfc9-2a52-408e-a3e6-56ffea9584df",
+      "name": "Reference",
+      "description": {
+        "content": "Enumerated values for request and response fields.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3e654e7c-ce7a-4b7f-9f3e-6f0d2c40f2e7",
+          "name": "List Enumerated Values For A Mapping Field",
+          "request": {
+            "name": "List Enumerated Values For A Mapping Field",
+            "description": {
+              "content": "Return the list of valid values for an enum-like mapping field such as\n`idType`, `exchCode`, `currency`, `securityType`, `securityType2`,\n`marketSecDes`, `micCode`, or `stateCode`.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "mapping",
+                "values",
+                ":key"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "key",
+                  "description": "(Required) The mapping field to enumerate."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "aeb06c89-e17c-48c0-bc5e-99475861d34b",
+              "name": "Valid values for the given field.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mapping",
+                    "values",
+                    ":key"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "key",
+                      "description": "(Required) The mapping field to enumerate."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"values\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7f77365d-52b6-44b7-85bd-037d77ab33f0",
+              "name": "Malformed request (validation failed, schema mismatch, etc.).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mapping",
+                    "values",
+                    ":key"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "key",
+                      "description": "(Required) The mapping field to enumerate."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b11fe0c9-53ab-4f9d-a545-2efa685887c0",
+              "name": "Resource not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mapping",
+                    "values",
+                    ":key"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "key",
+                      "description": "(Required) The mapping field to enumerate."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.openfigi.com/v3",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "noauth"
+  },
+  "info": {
+    "_postman_id": "46775c8e-2838-4c75-8915-f66f7301f1f9",
+    "name": "OpenFIGI API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The OpenFIGI API is the free, public REST API operated by Bloomberg as\nRegistration Authority for the Object Management Group (OMG) Financial\nInstrument Global Identifier (FIGI) standard. It maps third-party\nidentifiers (TICKER, ID_ISIN, ID_CUSIP, ID_SEDOL, ID_BB_GLOBAL, COMPOSITE_ID_BB_GLOBAL,\netc.) to FIGIs and exposes search and filter endpoints across hundreds of\nmillions of active and inactive securities.\n\nThe /v3 API is JSON over HTTPS. Authentication is optional via the\n`X-OPENFIGI-APIKEY` header; supplying an API key raises rate limits.\n\nNote: /v2 is deprecated with a sunset date of July 1, 2026 — clients should\nmigrate to /v3 endpoints and switch error handling from \"error\" to \"warning\"\non no-match responses.\n\n\nContact Support:\n Name: OpenFIGI Support",
+      "type": "text/plain"
+    }
+  }
+}
