@@ -9,7 +9,7 @@ description: >-
   products via SDKs in C++, Java, Python and .NET, and operates OpenFIGI — the free, public Financial Instrument Global
   Identifier (FIGI) symbology API and the most openly accessible Bloomberg API surface for the general developer
   audience.
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 url: https://raw.githubusercontent.com/api-evangelist/bloomberg-lp/refs/heads/main/apis.yml
 created: '2024-01-01'
 modified: '2026-05-23'
