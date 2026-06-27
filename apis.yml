@@ -46,7 +46,7 @@ apis:
         url: https://www.openfigi.com/api/documentation
       - type: GettingStarted
         url: https://www.openfigi.com/api
-      - type: SignUp
+      - type: Signup
         url: https://www.openfigi.com/user/signup
       - type: APIKey
         url: https://www.openfigi.com/user/signup
@@ -56,13 +56,13 @@ apis:
         url: https://www.openfigi.com/about/terms
       - type: GitHubOrganization
         url: https://github.com/OpenFIGI
-      - type: SDK
+      - type: SDKs
         url: https://github.com/OpenFIGI/api-examples
       - type: OpenAPI
         url: openapi/openfigi-openapi.yml
       - type: SpectralRules
         url: rules/openfigi-rules.yml
-      - type: NaftikoWorkflowCapability
+      - type: X-NaftikoWorkflowCapability
         url: capabilities/symbology-resolution.yaml
       - type: JSONSchema
         url: json-schema/openfigi-figi-record-schema.json
@@ -101,7 +101,7 @@ apis:
         url: https://data.bloomberglp.com/professional/sites/10/2017/03/BLPAPI-Core-Developer-Guide.pdf
       - type: GitHubOrganization
         url: https://github.com/bloomberg
-      - type: SDK
+      - type: SDKs
         url: https://github.com/msitt/blpapi-python
       - type: SDKPython
         url: https://pypi.org/project/blpapi/
@@ -192,7 +192,7 @@ apis:
         url: https://www.bloomberg.com/professional/products/bloomberg-terminal/
       - type: Pricing
         url: https://www.bloomberg.com/professional/pricing/
-      - type: SignUp
+      - type: Signup
         url: https://www.bloomberg.com/professional/request-demo/
 common:
   - type: LandingPage
