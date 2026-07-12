@@ -195,6 +195,10 @@ apis:
       - type: Signup
         url: https://www.bloomberg.com/professional/request-demo/
 common:
+  - type: DomainSecurity
+    url: security/bloomberg-lp-domain-security.yml
+  - type: Authentication
+    url: authentication/bloomberg-lp-authentication.yml
   - type: LandingPage
     url: https://www.bloomberg.com/
   - type: Company

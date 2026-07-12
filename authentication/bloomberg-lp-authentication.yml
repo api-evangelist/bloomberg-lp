@@ -1,0 +1,18 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/openfigi-openapi.yml
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+schemes:
+- name: ApiKeyAuth
+  type: apiKey
+  in: header
+  parameter: X-OPENFIGI-APIKEY
+  description: |-
+    Optional OpenFIGI API key. Sign up at https://www.openfigi.com/user/signup
+    to receive a key and unlock higher rate limits.
+  sources:
+  - openapi/openfigi-openapi.yml
