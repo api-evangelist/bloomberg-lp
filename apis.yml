@@ -195,6 +195,8 @@ apis:
       - type: Signup
         url: https://www.bloomberg.com/professional/request-demo/
 common:
+  - type: AgenticAccess
+    url: agentic-access/bloomberg-lp-agentic-access.yml
   - type: DomainSecurity
     url: security/bloomberg-lp-domain-security.yml
   - type: Authentication
