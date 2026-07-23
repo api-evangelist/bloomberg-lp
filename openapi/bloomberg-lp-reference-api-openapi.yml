@@ -1,0 +1,114 @@
+openapi: 3.0.3
+info:
+  title: OpenFIGI Filter Reference API
+  description: 'The OpenFIGI API is the free, public REST API operated by Bloomberg as
+
+    Registration Authority for the Object Management Group (OMG) Financial
+
+    Instrument Global Identifier (FIGI) standard. It maps third-party
+
+    identifiers (TICKER, ID_ISIN, ID_CUSIP, ID_SEDOL, ID_BB_GLOBAL, COMPOSITE_ID_BB_GLOBAL,
+
+    etc.) to FIGIs and exposes search and filter endpoints across hundreds of
+
+    millions of active and inactive securities.
+
+
+    The /v3 API is JSON over HTTPS. Authentication is optional via the
+
+    `X-OPENFIGI-APIKEY` header; supplying an API key raises rate limits.
+
+
+    Note: /v2 is deprecated with a sunset date of July 1, 2026 — clients should
+
+    migrate to /v3 endpoints and switch error handling from "error" to "warning"
+
+    on no-match responses.
+
+    '
+  version: 3.0.0
+  contact:
+    name: OpenFIGI Support
+    url: https://www.openfigi.com/api
+  license:
+    name: OpenFIGI Terms of Service
+    url: https://www.openfigi.com/about/terms
+servers:
+- url: https://api.openfigi.com/v3
+  description: OpenFIGI v3 production
+security:
+- {}
+- ApiKeyAuth: []
+tags:
+- name: Reference
+  description: Enumerated values for request and response fields.
+paths:
+  /mapping/values/{key}:
+    get:
+      operationId: listMappingValues
+      summary: List Enumerated Values For A Mapping Field
+      description: 'Return the list of valid values for an enum-like mapping field such as
+
+        `idType`, `exchCode`, `currency`, `securityType`, `securityType2`,
+
+        `marketSecDes`, `micCode`, or `stateCode`.
+
+        '
+      tags:
+      - Reference
+      parameters:
+      - name: key
+        in: path
+        required: true
+        description: The mapping field to enumerate.
+        schema:
+          type: string
+          enum:
+          - idType
+          - exchCode
+          - currency
+          - micCode
+          - marketSecDes
+          - securityType
+          - securityType2
+          - stateCode
+      responses:
+        '200':
+          description: Valid values for the given field.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  values:
+                    type: array
+                    items:
+                      type: string
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  responses:
+    NotFound:
+      description: Resource not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorBody'
+    BadRequest:
+      description: Malformed request (validation failed, schema mismatch, etc.).
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorBody'
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-OPENFIGI-APIKEY
+      description: 'Optional OpenFIGI API key. Sign up at https://www.openfigi.com/user/signup
+
+        to receive a key and unlock higher rate limits.
+
+        '

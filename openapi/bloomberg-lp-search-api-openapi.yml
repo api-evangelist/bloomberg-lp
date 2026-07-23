@@ -1,0 +1,195 @@
+openapi: 3.0.3
+info:
+  title: OpenFIGI Filter Search API
+  description: 'The OpenFIGI API is the free, public REST API operated by Bloomberg as
+
+    Registration Authority for the Object Management Group (OMG) Financial
+
+    Instrument Global Identifier (FIGI) standard. It maps third-party
+
+    identifiers (TICKER, ID_ISIN, ID_CUSIP, ID_SEDOL, ID_BB_GLOBAL, COMPOSITE_ID_BB_GLOBAL,
+
+    etc.) to FIGIs and exposes search and filter endpoints across hundreds of
+
+    millions of active and inactive securities.
+
+
+    The /v3 API is JSON over HTTPS. Authentication is optional via the
+
+    `X-OPENFIGI-APIKEY` header; supplying an API key raises rate limits.
+
+
+    Note: /v2 is deprecated with a sunset date of July 1, 2026 — clients should
+
+    migrate to /v3 endpoints and switch error handling from "error" to "warning"
+
+    on no-match responses.
+
+    '
+  version: 3.0.0
+  contact:
+    name: OpenFIGI Support
+    url: https://www.openfigi.com/api
+  license:
+    name: OpenFIGI Terms of Service
+    url: https://www.openfigi.com/about/terms
+servers:
+- url: https://api.openfigi.com/v3
+  description: OpenFIGI v3 production
+security:
+- {}
+- ApiKeyAuth: []
+tags:
+- name: Search
+  description: Keyword search across the FIGI universe.
+paths:
+  /search:
+    post:
+      operationId: searchFigis
+      summary: Keyword-Search The FIGI Universe
+      description: 'Search across the FIGI universe by free-text query plus optional
+
+        filters such as exchCode, currency, securityType, marketSecDes, and
+
+        date ranges. Results are paginated with the opaque `start` cursor
+
+        returned in the previous response.
+
+
+        Without an API key: 5 requests/minute. With an API key: 20 requests/minute.
+
+        Results are capped at 15,000 records per query.
+
+        '
+      tags:
+      - Search
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchRequest'
+      responses:
+        '200':
+          description: Search results.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/ServerError'
+components:
+  schemas:
+    FigiRecord:
+      type: object
+      properties:
+        figi:
+          type: string
+          description: The 12-character Financial Instrument Global Identifier.
+          example: BBG000BLNNH6
+        name:
+          type: string
+          description: Long name of the instrument.
+        ticker:
+          type: string
+        exchCode:
+          type: string
+        compositeFIGI:
+          type: string
+          description: Composite (country-level) FIGI for this instrument.
+        uniqueID:
+          type: string
+        securityType:
+          type: string
+        marketSector:
+          type: string
+          description: Bloomberg market sector (Equity, Comdty, Govt, Corp, Index, Curncy, Pfd, Muni, M-Mkt).
+        shareClassFIGI:
+          type: string
+          description: Share-class FIGI grouping multiple composite FIGIs for the same share class.
+        uniqueIDFutOpt:
+          type: string
+          nullable: true
+        securityType2:
+          type: string
+        securityDescription:
+          type: string
+        metadata:
+          type: string
+          nullable: true
+    SearchRequest:
+      type: object
+      required:
+      - query
+      properties:
+        query:
+          type: string
+          description: Free-text query string.
+        exchCode:
+          type: string
+        micCode:
+          type: string
+        currency:
+          type: string
+        marketSecDes:
+          type: string
+        securityType:
+          type: string
+        securityType2:
+          type: string
+        includeUnlistedEquities:
+          type: boolean
+        start:
+          type: string
+          description: Opaque pagination cursor from a previous response.
+    SearchResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/FigiRecord'
+        next:
+          type: string
+          description: Opaque cursor for the next page; absent on the final page.
+  responses:
+    Unauthorized:
+      description: Invalid X-OPENFIGI-APIKEY.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorBody'
+    TooManyRequests:
+      description: Rate limit exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorBody'
+    BadRequest:
+      description: Malformed request (validation failed, schema mismatch, etc.).
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorBody'
+    ServerError:
+      description: Internal server error.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorBody'
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-OPENFIGI-APIKEY
+      description: 'Optional OpenFIGI API key. Sign up at https://www.openfigi.com/user/signup
+
+        to receive a key and unlock higher rate limits.
+
+        '

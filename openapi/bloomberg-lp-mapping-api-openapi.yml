@@ -1,0 +1,325 @@
+openapi: 3.0.3
+info:
+  title: OpenFIGI Filter Mapping API
+  description: 'The OpenFIGI API is the free, public REST API operated by Bloomberg as
+
+    Registration Authority for the Object Management Group (OMG) Financial
+
+    Instrument Global Identifier (FIGI) standard. It maps third-party
+
+    identifiers (TICKER, ID_ISIN, ID_CUSIP, ID_SEDOL, ID_BB_GLOBAL, COMPOSITE_ID_BB_GLOBAL,
+
+    etc.) to FIGIs and exposes search and filter endpoints across hundreds of
+
+    millions of active and inactive securities.
+
+
+    The /v3 API is JSON over HTTPS. Authentication is optional via the
+
+    `X-OPENFIGI-APIKEY` header; supplying an API key raises rate limits.
+
+
+    Note: /v2 is deprecated with a sunset date of July 1, 2026 — clients should
+
+    migrate to /v3 endpoints and switch error handling from "error" to "warning"
+
+    on no-match responses.
+
+    '
+  version: 3.0.0
+  contact:
+    name: OpenFIGI Support
+    url: https://www.openfigi.com/api
+  license:
+    name: OpenFIGI Terms of Service
+    url: https://www.openfigi.com/about/terms
+servers:
+- url: https://api.openfigi.com/v3
+  description: OpenFIGI v3 production
+security:
+- {}
+- ApiKeyAuth: []
+tags:
+- name: Mapping
+  description: Map third-party identifiers to FIGIs.
+paths:
+  /mapping:
+    post:
+      operationId: mapIdentifiers
+      summary: Map Third-Party Identifiers To FIGIs
+      description: 'Map one or more third-party identifiers (ticker, ISIN, CUSIP, SEDOL,
+
+        Bloomberg Global ID, etc.) to FIGI records. The request body is a JSON
+
+        array of mapping jobs. Each job is processed independently and returns
+
+        either matched data, a warning (no match), or an error.
+
+
+        Without an API key: 25 requests/minute, up to 10 jobs per request.
+
+        With an API key: 25 requests/6 seconds, up to 100 jobs per request.
+
+        '
+      tags:
+      - Mapping
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              minItems: 1
+              maxItems: 100
+              items:
+                $ref: '#/components/schemas/MappingJob'
+            examples:
+              ticker_lookup:
+                summary: TICKER lookup for IBM US
+                value:
+                - idType: TICKER
+                  idValue: IBM
+                  exchCode: US
+      responses:
+        '200':
+          description: Per-job mapping results, in the same order as the request.
+          headers:
+            X-RateLimit-Limit:
+              schema:
+                type: integer
+            X-RateLimit-Remaining:
+              schema:
+                type: integer
+            X-RateLimit-Reset:
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MappingJobResult'
+              examples:
+                ibm_us_match:
+                  summary: TICKER=IBM, exchCode=US match
+                  value:
+                  - data:
+                    - figi: BBG000BLNNH6
+                      name: INTL BUSINESS MACHINES CORP
+                      ticker: IBM
+                      exchCode: US
+                      compositeFIGI: BBG000BLNNH6
+                      securityType: Common Stock
+                      marketSector: Equity
+                      shareClassFIGI: BBG001S5S399
+                      securityType2: Common Stock
+                      securityDescription: IBM
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/ServerError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+components:
+  schemas:
+    MappingJobResult:
+      type: object
+      description: 'Each result has exactly one of `data`, `warning`, or `error`.
+
+        '
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/FigiRecord'
+        warning:
+          type: string
+          description: Non-fatal condition such as "No identifier found."
+        error:
+          type: string
+          description: Fatal error processing this job.
+    FigiRecord:
+      type: object
+      properties:
+        figi:
+          type: string
+          description: The 12-character Financial Instrument Global Identifier.
+          example: BBG000BLNNH6
+        name:
+          type: string
+          description: Long name of the instrument.
+        ticker:
+          type: string
+        exchCode:
+          type: string
+        compositeFIGI:
+          type: string
+          description: Composite (country-level) FIGI for this instrument.
+        uniqueID:
+          type: string
+        securityType:
+          type: string
+        marketSector:
+          type: string
+          description: Bloomberg market sector (Equity, Comdty, Govt, Corp, Index, Curncy, Pfd, Muni, M-Mkt).
+        shareClassFIGI:
+          type: string
+          description: Share-class FIGI grouping multiple composite FIGIs for the same share class.
+        uniqueIDFutOpt:
+          type: string
+          nullable: true
+        securityType2:
+          type: string
+        securityDescription:
+          type: string
+        metadata:
+          type: string
+          nullable: true
+    MappingJob:
+      type: object
+      required:
+      - idType
+      - idValue
+      properties:
+        idType:
+          type: string
+          description: The third-party identifier type.
+          enum:
+          - ID_ISIN
+          - ID_BB_UNIQUE
+          - ID_SEDOL
+          - ID_COMMON
+          - ID_WERTPAPIER
+          - ID_CUSIP
+          - ID_BB
+          - ID_ITALY
+          - ID_EXCH_SYMBOL
+          - ID_FULL_EXCHANGE_SYMBOL
+          - COMPOSITE_ID_BB_GLOBAL
+          - ID_BB_GLOBAL_SHARE_CLASS_LEVEL
+          - ID_BB_SEC_NUM_DES
+          - ID_BB_GLOBAL
+          - TICKER
+          - BASE_TICKER
+          - ID_CUSIP_8_CHR
+          - OCC_SYMBOL
+          - UNIQUE_ID_FUT_OPT
+          - OPRA_SYMBOL
+          - TRADING_SYSTEM_IDENTIFIER
+          - ID_CINS
+          - ID_BB_PROP
+          - VENDOR_INDEX_CODE
+        idValue:
+          type: string
+          description: The identifier value.
+        exchCode:
+          type: string
+          description: Exchange code filter (e.g. US, LN, GR).
+        micCode:
+          type: string
+          description: ISO 10383 Market Identifier Code filter.
+        currency:
+          type: string
+          description: ISO 4217 currency code filter (e.g. USD, EUR).
+        marketSecDes:
+          type: string
+          description: Bloomberg market sector description (e.g. Equity, Comdty, Govt, Corp, Index, Curncy).
+        securityType:
+          type: string
+          description: Security type filter (e.g. Common Stock, Future, Option).
+        securityType2:
+          type: string
+          description: Secondary security type filter.
+        includeUnlistedEquities:
+          type: boolean
+          description: Whether to include unlisted equities in results.
+        optionType:
+          type: string
+          enum:
+          - Call
+          - Put
+        strike:
+          type: array
+          items:
+            type: number
+            nullable: true
+          minItems: 2
+          maxItems: 2
+          description: Strike range as [min, max]; either bound may be null.
+        contractSize:
+          type: array
+          items:
+            type: number
+            nullable: true
+          minItems: 2
+          maxItems: 2
+        coupon:
+          type: array
+          items:
+            type: number
+            nullable: true
+          minItems: 2
+          maxItems: 2
+        expiration:
+          type: array
+          items:
+            type: string
+            nullable: true
+            format: date
+          minItems: 2
+          maxItems: 2
+        maturity:
+          type: array
+          items:
+            type: string
+            nullable: true
+            format: date
+          minItems: 2
+          maxItems: 2
+        stateCode:
+          type: string
+  responses:
+    Unauthorized:
+      description: Invalid X-OPENFIGI-APIKEY.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorBody'
+    TooManyRequests:
+      description: Rate limit exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorBody'
+    BadRequest:
+      description: Malformed request (validation failed, schema mismatch, etc.).
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorBody'
+    ServiceUnavailable:
+      description: Service temporarily unavailable.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorBody'
+    ServerError:
+      description: Internal server error.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorBody'
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-OPENFIGI-APIKEY
+      description: 'Optional OpenFIGI API key. Sign up at https://www.openfigi.com/user/signup
+
+        to receive a key and unlock higher rate limits.
+
+        '
