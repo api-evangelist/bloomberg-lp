@@ -1,0 +1,278 @@
+{
+  "info": {
+    "_postman_id": "32969565-3c93-4f9d-9e30-b4dc143bf500",
+    "name": "OpenFIGI Filter API",
+    "description": "The OpenFIGI API is the free, public REST API operated by Bloomberg as\nRegistration Authority for the Object Management Group (OMG) Financial\nInstrument Global Identifier (FIGI) standard. It maps third-party\nidentifiers (TICKER, ID_ISIN, ID_CUSIP, ID_SEDOL, ID_BB_GLOBAL, COMPOSITE_ID_BB_GLOBAL,\netc.) to FIGIs and exposes search and filter endpoints across hundreds of\nmillions of active and inactive securities.\n\nThe /v3 API is JSON over HTTPS. Authentication is optional via the\n`X-OPENFIGI-APIKEY` header; supplying an API key raises rate limits.\n\nNote: /v2 is deprecated with a sunset date of July 1, 2026 \u2014 clients should\nmigrate to /v3 endpoints and switch error handling from \"error\" to \"warning\"\non no-match responses.\n\n\nContact Support:\n Name: OpenFIGI Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:14:31.000Z",
+    "updatedAt": "2026-07-28T01:14:31.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-32969565-3c93-4f9d-9e30-b4dc143bf500"
+  },
+  "item": [
+    {
+      "name": "filter",
+      "item": [
+        {
+          "name": "Filter The FIGI Universe With Result Counts",
+          "id": "9c0e7547-fe1e-44f6-88fa-a903bce31cef",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"<string>\",\n  \"exchCode\": \"<string>\",\n  \"micCode\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"marketSecDes\": \"<string>\",\n  \"securityType\": \"<string>\",\n  \"securityType2\": \"<string>\",\n  \"includeUnlistedEquities\": \"<boolean>\",\n  \"start\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/filter",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "filter"
+              ]
+            },
+            "description": "Filter the FIGI universe with optional keyword query, returning results\nsorted alphabetically by FIGI plus a `total` count of matches. Useful\nfor inventorying a population of securities matching a set of criteria.\n\nWithout an API key: 5 requests/minute. With an API key: 20 requests/minute.\nResults are capped at 15,000 records per query.\n"
+          },
+          "response": [
+            {
+              "id": "acdc7e6a-42e9-4ead-84cd-e6c82edf1ab4",
+              "name": "Filter results with total count.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"<string>\",\n  \"exchCode\": \"<string>\",\n  \"micCode\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"marketSecDes\": \"<string>\",\n  \"securityType\": \"<string>\",\n  \"securityType2\": \"<string>\",\n  \"includeUnlistedEquities\": \"<boolean>\",\n  \"start\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/filter",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "filter"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"data\": [\n    {\n      \"figi\": \"<string>\",\n      \"name\": \"<string>\",\n      \"ticker\": \"<string>\",\n      \"exchCode\": \"<string>\",\n      \"compositeFIGI\": \"<string>\",\n      \"uniqueID\": \"<string>\",\n      \"securityType\": \"<string>\",\n      \"marketSector\": \"<string>\",\n      \"shareClassFIGI\": \"<string>\",\n      \"uniqueIDFutOpt\": \"<string>\",\n      \"securityType2\": \"<string>\",\n      \"securityDescription\": \"<string>\",\n      \"metadata\": \"<string>\"\n    },\n    {\n      \"figi\": \"<string>\",\n      \"name\": \"<string>\",\n      \"ticker\": \"<string>\",\n      \"exchCode\": \"<string>\",\n      \"compositeFIGI\": \"<string>\",\n      \"uniqueID\": \"<string>\",\n      \"securityType\": \"<string>\",\n      \"marketSector\": \"<string>\",\n      \"shareClassFIGI\": \"<string>\",\n      \"uniqueIDFutOpt\": \"<string>\",\n      \"securityType2\": \"<string>\",\n      \"securityDescription\": \"<string>\",\n      \"metadata\": \"<string>\"\n    }\n  ],\n  \"next\": \"<string>\",\n  \"total\": \"<integer>\"\n}",
+              "createdAt": "2026-07-28T01:14:32.000Z",
+              "updatedAt": "2026-07-28T01:14:32.000Z",
+              "uid": "35240-acdc7e6a-42e9-4ead-84cd-e6c82edf1ab4"
+            },
+            {
+              "id": "e5d56407-a440-4a6e-9aaf-914fb0f792f6",
+              "name": "Malformed request (validation failed, schema mismatch, etc.).",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"<string>\",\n  \"exchCode\": \"<string>\",\n  \"micCode\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"marketSecDes\": \"<string>\",\n  \"securityType\": \"<string>\",\n  \"securityType2\": \"<string>\",\n  \"includeUnlistedEquities\": \"<boolean>\",\n  \"start\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/filter",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "filter"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"value\": \"reference #/components/schemas/ErrorBody not found in the OpenAPI spec\"\n}",
+              "createdAt": "2026-07-28T01:14:32.000Z",
+              "updatedAt": "2026-07-28T01:14:32.000Z",
+              "uid": "35240-e5d56407-a440-4a6e-9aaf-914fb0f792f6"
+            },
+            {
+              "id": "f2e4e3fa-364a-4c09-b324-a65703b30be5",
+              "name": "Invalid X-OPENFIGI-APIKEY.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"<string>\",\n  \"exchCode\": \"<string>\",\n  \"micCode\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"marketSecDes\": \"<string>\",\n  \"securityType\": \"<string>\",\n  \"securityType2\": \"<string>\",\n  \"includeUnlistedEquities\": \"<boolean>\",\n  \"start\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/filter",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "filter"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"value\": \"reference #/components/schemas/ErrorBody not found in the OpenAPI spec\"\n}",
+              "createdAt": "2026-07-28T01:14:32.000Z",
+              "updatedAt": "2026-07-28T01:14:32.000Z",
+              "uid": "35240-f2e4e3fa-364a-4c09-b324-a65703b30be5"
+            },
+            {
+              "id": "2ac4f9f3-7922-4057-8799-e88ea6b226b3",
+              "name": "Rate limit exceeded.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"<string>\",\n  \"exchCode\": \"<string>\",\n  \"micCode\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"marketSecDes\": \"<string>\",\n  \"securityType\": \"<string>\",\n  \"securityType2\": \"<string>\",\n  \"includeUnlistedEquities\": \"<boolean>\",\n  \"start\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/filter",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "filter"
+                  ]
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"value\": \"reference #/components/schemas/ErrorBody not found in the OpenAPI spec\"\n}",
+              "createdAt": "2026-07-28T01:14:32.000Z",
+              "updatedAt": "2026-07-28T01:14:32.000Z",
+              "uid": "35240-2ac4f9f3-7922-4057-8799-e88ea6b226b3"
+            }
+          ],
+          "createdAt": "2026-07-28T01:14:32.000Z",
+          "updatedAt": "2026-07-28T01:14:32.000Z",
+          "uid": "35240-9c0e7547-fe1e-44f6-88fa-a903bce31cef"
+        }
+      ],
+      "id": "b5242fec-1f72-4ca7-96c2-a129a80b7176",
+      "createdAt": "2026-07-28T01:14:31.000Z",
+      "updatedAt": "2026-07-28T01:14:31.000Z",
+      "uid": "35240-b5242fec-1f72-4ca7-96c2-a129a80b7176"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.openfigi.com/v3"
+    }
+  ]
+}

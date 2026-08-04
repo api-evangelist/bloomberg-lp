@@ -1,0 +1,407 @@
+{
+  "info": {
+    "_postman_id": "c8737341-a5f9-4fd6-b4ae-1131148732b3",
+    "name": "OpenFIGI Filter Mapping API",
+    "description": "The OpenFIGI API is the free, public REST API operated by Bloomberg as\nRegistration Authority for the Object Management Group (OMG) Financial\nInstrument Global Identifier (FIGI) standard. It maps third-party\nidentifiers (TICKER, ID_ISIN, ID_CUSIP, ID_SEDOL, ID_BB_GLOBAL, COMPOSITE_ID_BB_GLOBAL,\netc.) to FIGIs and exposes search and filter endpoints across hundreds of\nmillions of active and inactive securities.\n\nThe /v3 API is JSON over HTTPS. Authentication is optional via the\n`X-OPENFIGI-APIKEY` header; supplying an API key raises rate limits.\n\nNote: /v2 is deprecated with a sunset date of July 1, 2026 \u2014 clients should\nmigrate to /v3 endpoints and switch error handling from \"error\" to \"warning\"\non no-match responses.\n\n\nContact Support:\n Name: OpenFIGI Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:14:32.000Z",
+    "updatedAt": "2026-07-28T01:14:32.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-c8737341-a5f9-4fd6-b4ae-1131148732b3"
+  },
+  "item": [
+    {
+      "name": "mapping",
+      "item": [
+        {
+          "name": "Map Third-Party Identifiers To FIGIs",
+          "id": "fa9c37b3-f119-460c-a4f4-06d47aa6fb49",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"idType\": \"ID_SEDOL\",\n    \"idValue\": \"<string>\",\n    \"exchCode\": \"<string>\",\n    \"micCode\": \"<string>\",\n    \"currency\": \"<string>\",\n    \"marketSecDes\": \"<string>\",\n    \"securityType\": \"<string>\",\n    \"securityType2\": \"<string>\",\n    \"includeUnlistedEquities\": \"<boolean>\",\n    \"optionType\": \"Put\",\n    \"strike\": [\n      \"<number>\",\n      \"<number>\"\n    ],\n    \"contractSize\": [\n      \"<number>\",\n      \"<number>\"\n    ],\n    \"coupon\": [\n      \"<number>\",\n      \"<number>\"\n    ],\n    \"expiration\": [\n      \"<date>\",\n      \"<date>\"\n    ],\n    \"maturity\": [\n      \"<date>\",\n      \"<date>\"\n    ],\n    \"stateCode\": \"<string>\"\n  }\n]",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/mapping",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "mapping"
+              ]
+            },
+            "description": "Map one or more third-party identifiers (ticker, ISIN, CUSIP, SEDOL,\nBloomberg Global ID, etc.) to FIGI records. The request body is a JSON\narray of mapping jobs. Each job is processed independently and returns\neither matched data, a warning (no match), or an error.\n\nWithout an API key: 25 requests/minute, up to 10 jobs per request.\nWith an API key: 25 requests/6 seconds, up to 100 jobs per request.\n"
+          },
+          "response": [
+            {
+              "id": "23e265a8-ed7f-4d55-a7b4-e4b5da2c6f0f",
+              "name": "Per-job mapping results, in the same order as the request.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"idType\": \"ID_SEDOL\",\n    \"idValue\": \"<string>\",\n    \"exchCode\": \"<string>\",\n    \"micCode\": \"<string>\",\n    \"currency\": \"<string>\",\n    \"marketSecDes\": \"<string>\",\n    \"securityType\": \"<string>\",\n    \"securityType2\": \"<string>\",\n    \"includeUnlistedEquities\": \"<boolean>\",\n    \"optionType\": \"Put\",\n    \"strike\": [\n      \"<number>\",\n      \"<number>\"\n    ],\n    \"contractSize\": [\n      \"<number>\",\n      \"<number>\"\n    ],\n    \"coupon\": [\n      \"<number>\",\n      \"<number>\"\n    ],\n    \"expiration\": [\n      \"<date>\",\n      \"<date>\"\n    ],\n    \"maturity\": [\n      \"<date>\",\n      \"<date>\"\n    ],\n    \"stateCode\": \"<string>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/mapping",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "mapping"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "key": "X-RateLimit-Limit",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "key": "X-RateLimit-Remaining",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "key": "X-RateLimit-Reset",
+                  "value": "<integer>"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "[\n  {\n    \"data\": [\n      {\n        \"figi\": \"<string>\",\n        \"name\": \"<string>\",\n        \"ticker\": \"<string>\",\n        \"exchCode\": \"<string>\",\n        \"compositeFIGI\": \"<string>\",\n        \"uniqueID\": \"<string>\",\n        \"securityType\": \"<string>\",\n        \"marketSector\": \"<string>\",\n        \"shareClassFIGI\": \"<string>\",\n        \"uniqueIDFutOpt\": \"<string>\",\n        \"securityType2\": \"<string>\",\n        \"securityDescription\": \"<string>\",\n        \"metadata\": \"<string>\"\n      },\n      {\n        \"figi\": \"<string>\",\n        \"name\": \"<string>\",\n        \"ticker\": \"<string>\",\n        \"exchCode\": \"<string>\",\n        \"compositeFIGI\": \"<string>\",\n        \"uniqueID\": \"<string>\",\n        \"securityType\": \"<string>\",\n        \"marketSector\": \"<string>\",\n        \"shareClassFIGI\": \"<string>\",\n        \"uniqueIDFutOpt\": \"<string>\",\n        \"securityType2\": \"<string>\",\n        \"securityDescription\": \"<string>\",\n        \"metadata\": \"<string>\"\n      }\n    ],\n    \"warning\": \"<string>\",\n    \"error\": \"<string>\"\n  },\n  {\n    \"data\": [\n      {\n        \"figi\": \"<string>\",\n        \"name\": \"<string>\",\n        \"ticker\": \"<string>\",\n        \"exchCode\": \"<string>\",\n        \"compositeFIGI\": \"<string>\",\n        \"uniqueID\": \"<string>\",\n        \"securityType\": \"<string>\",\n        \"marketSector\": \"<string>\",\n        \"shareClassFIGI\": \"<string>\",\n        \"uniqueIDFutOpt\": \"<string>\",\n        \"securityType2\": \"<string>\",\n        \"securityDescription\": \"<string>\",\n        \"metadata\": \"<string>\"\n      },\n      {\n        \"figi\": \"<string>\",\n        \"name\": \"<string>\",\n        \"ticker\": \"<string>\",\n        \"exchCode\": \"<string>\",\n        \"compositeFIGI\": \"<string>\",\n        \"uniqueID\": \"<string>\",\n        \"securityType\": \"<string>\",\n        \"marketSector\": \"<string>\",\n        \"shareClassFIGI\": \"<string>\",\n        \"uniqueIDFutOpt\": \"<string>\",\n        \"securityType2\": \"<string>\",\n        \"securityDescription\": \"<string>\",\n        \"metadata\": \"<string>\"\n      }\n    ],\n    \"warning\": \"<string>\",\n    \"error\": \"<string>\"\n  }\n]",
+              "createdAt": "2026-07-28T01:14:32.000Z",
+              "updatedAt": "2026-07-28T01:14:32.000Z",
+              "uid": "35240-23e265a8-ed7f-4d55-a7b4-e4b5da2c6f0f"
+            },
+            {
+              "id": "83a4db68-d398-4994-953f-939460d7129b",
+              "name": "Malformed request (validation failed, schema mismatch, etc.).",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"idType\": \"ID_SEDOL\",\n    \"idValue\": \"<string>\",\n    \"exchCode\": \"<string>\",\n    \"micCode\": \"<string>\",\n    \"currency\": \"<string>\",\n    \"marketSecDes\": \"<string>\",\n    \"securityType\": \"<string>\",\n    \"securityType2\": \"<string>\",\n    \"includeUnlistedEquities\": \"<boolean>\",\n    \"optionType\": \"Put\",\n    \"strike\": [\n      \"<number>\",\n      \"<number>\"\n    ],\n    \"contractSize\": [\n      \"<number>\",\n      \"<number>\"\n    ],\n    \"coupon\": [\n      \"<number>\",\n      \"<number>\"\n    ],\n    \"expiration\": [\n      \"<date>\",\n      \"<date>\"\n    ],\n    \"maturity\": [\n      \"<date>\",\n      \"<date>\"\n    ],\n    \"stateCode\": \"<string>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/mapping",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "mapping"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"value\": \"reference #/components/schemas/ErrorBody not found in the OpenAPI spec\"\n}",
+              "createdAt": "2026-07-28T01:14:32.000Z",
+              "updatedAt": "2026-07-28T01:14:32.000Z",
+              "uid": "35240-83a4db68-d398-4994-953f-939460d7129b"
+            },
+            {
+              "id": "e7a04001-0d97-4e7f-992b-670a65fc5eeb",
+              "name": "Invalid X-OPENFIGI-APIKEY.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"idType\": \"ID_SEDOL\",\n    \"idValue\": \"<string>\",\n    \"exchCode\": \"<string>\",\n    \"micCode\": \"<string>\",\n    \"currency\": \"<string>\",\n    \"marketSecDes\": \"<string>\",\n    \"securityType\": \"<string>\",\n    \"securityType2\": \"<string>\",\n    \"includeUnlistedEquities\": \"<boolean>\",\n    \"optionType\": \"Put\",\n    \"strike\": [\n      \"<number>\",\n      \"<number>\"\n    ],\n    \"contractSize\": [\n      \"<number>\",\n      \"<number>\"\n    ],\n    \"coupon\": [\n      \"<number>\",\n      \"<number>\"\n    ],\n    \"expiration\": [\n      \"<date>\",\n      \"<date>\"\n    ],\n    \"maturity\": [\n      \"<date>\",\n      \"<date>\"\n    ],\n    \"stateCode\": \"<string>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/mapping",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "mapping"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"value\": \"reference #/components/schemas/ErrorBody not found in the OpenAPI spec\"\n}",
+              "createdAt": "2026-07-28T01:14:32.000Z",
+              "updatedAt": "2026-07-28T01:14:32.000Z",
+              "uid": "35240-e7a04001-0d97-4e7f-992b-670a65fc5eeb"
+            },
+            {
+              "id": "fbd1569a-0cb6-4ba7-88a8-7c07393e1d3c",
+              "name": "Rate limit exceeded.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"idType\": \"ID_SEDOL\",\n    \"idValue\": \"<string>\",\n    \"exchCode\": \"<string>\",\n    \"micCode\": \"<string>\",\n    \"currency\": \"<string>\",\n    \"marketSecDes\": \"<string>\",\n    \"securityType\": \"<string>\",\n    \"securityType2\": \"<string>\",\n    \"includeUnlistedEquities\": \"<boolean>\",\n    \"optionType\": \"Put\",\n    \"strike\": [\n      \"<number>\",\n      \"<number>\"\n    ],\n    \"contractSize\": [\n      \"<number>\",\n      \"<number>\"\n    ],\n    \"coupon\": [\n      \"<number>\",\n      \"<number>\"\n    ],\n    \"expiration\": [\n      \"<date>\",\n      \"<date>\"\n    ],\n    \"maturity\": [\n      \"<date>\",\n      \"<date>\"\n    ],\n    \"stateCode\": \"<string>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/mapping",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "mapping"
+                  ]
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"value\": \"reference #/components/schemas/ErrorBody not found in the OpenAPI spec\"\n}",
+              "createdAt": "2026-07-28T01:14:32.000Z",
+              "updatedAt": "2026-07-28T01:14:32.000Z",
+              "uid": "35240-fbd1569a-0cb6-4ba7-88a8-7c07393e1d3c"
+            },
+            {
+              "id": "89915d2c-28c9-4ec1-8b7e-c328c08b3341",
+              "name": "Internal server error.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"idType\": \"ID_SEDOL\",\n    \"idValue\": \"<string>\",\n    \"exchCode\": \"<string>\",\n    \"micCode\": \"<string>\",\n    \"currency\": \"<string>\",\n    \"marketSecDes\": \"<string>\",\n    \"securityType\": \"<string>\",\n    \"securityType2\": \"<string>\",\n    \"includeUnlistedEquities\": \"<boolean>\",\n    \"optionType\": \"Put\",\n    \"strike\": [\n      \"<number>\",\n      \"<number>\"\n    ],\n    \"contractSize\": [\n      \"<number>\",\n      \"<number>\"\n    ],\n    \"coupon\": [\n      \"<number>\",\n      \"<number>\"\n    ],\n    \"expiration\": [\n      \"<date>\",\n      \"<date>\"\n    ],\n    \"maturity\": [\n      \"<date>\",\n      \"<date>\"\n    ],\n    \"stateCode\": \"<string>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/mapping",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "mapping"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"value\": \"reference #/components/schemas/ErrorBody not found in the OpenAPI spec\"\n}",
+              "createdAt": "2026-07-28T01:14:32.000Z",
+              "updatedAt": "2026-07-28T01:14:32.000Z",
+              "uid": "35240-89915d2c-28c9-4ec1-8b7e-c328c08b3341"
+            },
+            {
+              "id": "c434e59f-cf60-4517-918c-0e7bce5baca8",
+              "name": "Service temporarily unavailable.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"idType\": \"ID_SEDOL\",\n    \"idValue\": \"<string>\",\n    \"exchCode\": \"<string>\",\n    \"micCode\": \"<string>\",\n    \"currency\": \"<string>\",\n    \"marketSecDes\": \"<string>\",\n    \"securityType\": \"<string>\",\n    \"securityType2\": \"<string>\",\n    \"includeUnlistedEquities\": \"<boolean>\",\n    \"optionType\": \"Put\",\n    \"strike\": [\n      \"<number>\",\n      \"<number>\"\n    ],\n    \"contractSize\": [\n      \"<number>\",\n      \"<number>\"\n    ],\n    \"coupon\": [\n      \"<number>\",\n      \"<number>\"\n    ],\n    \"expiration\": [\n      \"<date>\",\n      \"<date>\"\n    ],\n    \"maturity\": [\n      \"<date>\",\n      \"<date>\"\n    ],\n    \"stateCode\": \"<string>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/mapping",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "mapping"
+                  ]
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"value\": \"reference #/components/schemas/ErrorBody not found in the OpenAPI spec\"\n}",
+              "createdAt": "2026-07-28T01:14:32.000Z",
+              "updatedAt": "2026-07-28T01:14:32.000Z",
+              "uid": "35240-c434e59f-cf60-4517-918c-0e7bce5baca8"
+            }
+          ],
+          "createdAt": "2026-07-28T01:14:32.000Z",
+          "updatedAt": "2026-07-28T01:14:32.000Z",
+          "uid": "35240-fa9c37b3-f119-460c-a4f4-06d47aa6fb49"
+        }
+      ],
+      "id": "2fd583e8-323b-469d-a504-ccb078105d6c",
+      "createdAt": "2026-07-28T01:14:32.000Z",
+      "updatedAt": "2026-07-28T01:14:32.000Z",
+      "uid": "35240-2fd583e8-323b-469d-a504-ccb078105d6c"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.openfigi.com/v3"
+    }
+  ]
+}

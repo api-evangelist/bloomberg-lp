@@ -1,0 +1,25 @@
+{
+  "provider": "bloomberg-lp",
+  "sources": [
+    "bloomberg-lp-filter-api-openapi.yml",
+    "bloomberg-lp-mapping-api-openapi.yml",
+    "bloomberg-lp-reference-api-openapi.yml",
+    "bloomberg-lp-search-api-openapi.yml"
+  ],
+  "outputs": [
+    "bloomberg-lp-filter-api-openapi.yml",
+    "bloomberg-lp-mapping-api-openapi.yml",
+    "bloomberg-lp-reference-api-openapi.yml",
+    "bloomberg-lp-search-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [
+    "bloomberg-lp-filter-api-openapi.yml: dangling $ref: #/components/schemas/ErrorBody",
+    "bloomberg-lp-mapping-api-openapi.yml: dangling $ref: #/components/schemas/ErrorBody",
+    "bloomberg-lp-reference-api-openapi.yml: dangling $ref: #/components/schemas/ErrorBody",
+    "bloomberg-lp-search-api-openapi.yml: dangling $ref: #/components/schemas/ErrorBody"
+  ],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

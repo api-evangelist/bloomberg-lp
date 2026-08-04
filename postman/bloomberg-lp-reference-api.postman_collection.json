@@ -1,0 +1,220 @@
+{
+  "info": {
+    "_postman_id": "5966c86b-edc7-4503-9d0e-ebb606dbc833",
+    "name": "OpenFIGI Filter Reference API",
+    "description": "The OpenFIGI API is the free, public REST API operated by Bloomberg as\nRegistration Authority for the Object Management Group (OMG) Financial\nInstrument Global Identifier (FIGI) standard. It maps third-party\nidentifiers (TICKER, ID_ISIN, ID_CUSIP, ID_SEDOL, ID_BB_GLOBAL, COMPOSITE_ID_BB_GLOBAL,\netc.) to FIGIs and exposes search and filter endpoints across hundreds of\nmillions of active and inactive securities.\n\nThe /v3 API is JSON over HTTPS. Authentication is optional via the\n`X-OPENFIGI-APIKEY` header; supplying an API key raises rate limits.\n\nNote: /v2 is deprecated with a sunset date of July 1, 2026 \u2014 clients should\nmigrate to /v3 endpoints and switch error handling from \"error\" to \"warning\"\non no-match responses.\n\n\nContact Support:\n Name: OpenFIGI Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:14:33.000Z",
+    "updatedAt": "2026-07-28T01:14:33.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-5966c86b-edc7-4503-9d0e-ebb606dbc833"
+  },
+  "item": [
+    {
+      "name": "mapping",
+      "item": [
+        {
+          "name": "values",
+          "item": [
+            {
+              "name": "{key}",
+              "item": [
+                {
+                  "name": "List Enumerated Values For A Mapping Field",
+                  "id": "3f483e0e-13c9-44f9-8384-5b3e83159b51",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/mapping/values/:key",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "mapping",
+                        "values",
+                        ":key"
+                      ],
+                      "variable": [
+                        {
+                          "id": "355dfe2a-2f17-48e9-a54c-1192409b93e4",
+                          "key": "key",
+                          "value": "stateCode",
+                          "description": "(Required) The mapping field to enumerate."
+                        }
+                      ]
+                    },
+                    "description": "Return the list of valid values for an enum-like mapping field such as\n`idType`, `exchCode`, `currency`, `securityType`, `securityType2`,\n`marketSecDes`, `micCode`, or `stateCode`.\n"
+                  },
+                  "response": [
+                    {
+                      "id": "9ee2cc0d-5670-4254-8e97-0bcfdd2083ad",
+                      "name": "Valid values for the given field.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/mapping/values/:key",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "mapping",
+                            "values",
+                            ":key"
+                          ],
+                          "variable": [
+                            {
+                              "key": "key"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"values\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "createdAt": "2026-07-28T01:14:34.000Z",
+                      "updatedAt": "2026-07-28T01:14:34.000Z",
+                      "uid": "35240-9ee2cc0d-5670-4254-8e97-0bcfdd2083ad"
+                    },
+                    {
+                      "id": "90fde5b2-092a-407f-b399-8046fd3011d6",
+                      "name": "Malformed request (validation failed, schema mismatch, etc.).",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/mapping/values/:key",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "mapping",
+                            "values",
+                            ":key"
+                          ],
+                          "variable": [
+                            {
+                              "key": "key"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"value\": \"reference #/components/schemas/ErrorBody not found in the OpenAPI spec\"\n}",
+                      "createdAt": "2026-07-28T01:14:34.000Z",
+                      "updatedAt": "2026-07-28T01:14:34.000Z",
+                      "uid": "35240-90fde5b2-092a-407f-b399-8046fd3011d6"
+                    },
+                    {
+                      "id": "fd32fb8f-a347-4774-95ec-98dbcf1e67c6",
+                      "name": "Resource not found.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/mapping/values/:key",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "mapping",
+                            "values",
+                            ":key"
+                          ],
+                          "variable": [
+                            {
+                              "key": "key"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"value\": \"reference #/components/schemas/ErrorBody not found in the OpenAPI spec\"\n}",
+                      "createdAt": "2026-07-28T01:14:34.000Z",
+                      "updatedAt": "2026-07-28T01:14:34.000Z",
+                      "uid": "35240-fd32fb8f-a347-4774-95ec-98dbcf1e67c6"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:14:34.000Z",
+                  "updatedAt": "2026-07-28T01:14:34.000Z",
+                  "uid": "35240-3f483e0e-13c9-44f9-8384-5b3e83159b51"
+                }
+              ],
+              "id": "5b3d81d4-0fc6-41d6-9e74-52029bfeb85f",
+              "createdAt": "2026-07-28T01:14:34.000Z",
+              "updatedAt": "2026-07-28T01:14:34.000Z",
+              "uid": "35240-5b3d81d4-0fc6-41d6-9e74-52029bfeb85f"
+            }
+          ],
+          "id": "62c3e84c-19de-4db8-8fd6-278f8adb1ad1",
+          "createdAt": "2026-07-28T01:14:34.000Z",
+          "updatedAt": "2026-07-28T01:14:34.000Z",
+          "uid": "35240-62c3e84c-19de-4db8-8fd6-278f8adb1ad1"
+        }
+      ],
+      "id": "56566013-98f8-4dbd-89c9-0760a0446995",
+      "createdAt": "2026-07-28T01:14:34.000Z",
+      "updatedAt": "2026-07-28T01:14:34.000Z",
+      "uid": "35240-56566013-98f8-4dbd-89c9-0760a0446995"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.openfigi.com/v3"
+    }
+  ]
+}
