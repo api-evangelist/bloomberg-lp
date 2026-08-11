@@ -190,8 +190,6 @@ apis:
     url: https://github.com/OpenFIGI/api-examples
   - type: SpectralRules
     url: rules/openfigi-rules.yml
-  - type: X-NaftikoWorkflowCapability
-    url: capabilities/symbology-resolution.yaml
   - type: JSONSchema
     url: json-schema/openfigi-figi-record-schema.json
   - type: JSONSchemaMappingJob
@@ -232,8 +230,6 @@ apis:
     url: https://github.com/OpenFIGI/api-examples
   - type: SpectralRules
     url: rules/openfigi-rules.yml
-  - type: X-NaftikoWorkflowCapability
-    url: capabilities/symbology-resolution.yaml
   - type: JSONSchema
     url: json-schema/openfigi-figi-record-schema.json
   - type: JSONSchemaMappingJob
@@ -274,8 +270,6 @@ apis:
     url: https://github.com/OpenFIGI/api-examples
   - type: SpectralRules
     url: rules/openfigi-rules.yml
-  - type: X-NaftikoWorkflowCapability
-    url: capabilities/symbology-resolution.yaml
   - type: JSONSchema
     url: json-schema/openfigi-figi-record-schema.json
   - type: JSONSchemaMappingJob
@@ -316,8 +310,6 @@ apis:
     url: https://github.com/OpenFIGI/api-examples
   - type: SpectralRules
     url: rules/openfigi-rules.yml
-  - type: X-NaftikoWorkflowCapability
-    url: capabilities/symbology-resolution.yaml
   - type: JSONSchema
     url: json-schema/openfigi-figi-record-schema.json
   - type: JSONSchemaMappingJob
