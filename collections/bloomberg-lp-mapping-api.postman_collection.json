@@ -1,0 +1,359 @@
+{
+  "item": [
+    {
+      "id": "ba3e31dd-9aa3-481b-b552-80144103fa2a",
+      "name": "Mapping",
+      "description": {
+        "content": "Map third-party identifiers to FIGIs.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "dae209e5-fa93-4917-8d2c-ee3258310d6e",
+          "name": "Map Third-Party Identifiers To FIGIs",
+          "request": {
+            "name": "Map Third-Party Identifiers To FIGIs",
+            "description": {
+              "content": "Map one or more third-party identifiers (ticker, ISIN, CUSIP, SEDOL,\nBloomberg Global ID, etc.) to FIGI records. The request body is a JSON\narray of mapping jobs. Each job is processed independently and returns\neither matched data, a warning (no match), or an error.\n\nWithout an API key: 25 requests/minute, up to 10 jobs per request.\nWith an API key: 25 requests/6 seconds, up to 100 jobs per request.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "mapping"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"idType\": \"<string>\",\n    \"idValue\": \"<string>\",\n    \"exchCode\": \"<string>\",\n    \"micCode\": \"<string>\",\n    \"currency\": \"<string>\",\n    \"marketSecDes\": \"<string>\",\n    \"securityType\": \"<string>\",\n    \"securityType2\": \"<string>\",\n    \"includeUnlistedEquities\": \"<boolean>\",\n    \"optionType\": \"<string>\",\n    \"strike\": [\n      \"<number>\",\n      \"<number>\"\n    ],\n    \"contractSize\": [\n      \"<number>\",\n      \"<number>\"\n    ],\n    \"coupon\": [\n      \"<number>\",\n      \"<number>\"\n    ],\n    \"expiration\": [\n      \"<date>\",\n      \"<date>\"\n    ],\n    \"maturity\": [\n      \"<date>\",\n      \"<date>\"\n    ],\n    \"stateCode\": \"<string>\"\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a92cde9e-bac0-4347-8081-5c8141b8aff9",
+              "name": "Per-job mapping results, in the same order as the request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mapping"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"idType\": \"TICKER\",\n    \"idValue\": \"IBM\",\n    \"exchCode\": \"US\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Limit",
+                  "value": "8182",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Remaining",
+                  "value": "8182",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Reset",
+                  "value": "8182",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"data\": [\n      {\n        \"figi\": \"BBG000BLNNH6\",\n        \"name\": \"INTL BUSINESS MACHINES CORP\",\n        \"ticker\": \"IBM\",\n        \"exchCode\": \"US\",\n        \"compositeFIGI\": \"BBG000BLNNH6\",\n        \"securityType\": \"Common Stock\",\n        \"marketSector\": \"Equity\",\n        \"shareClassFIGI\": \"BBG001S5S399\",\n        \"securityType2\": \"Common Stock\",\n        \"securityDescription\": \"IBM\"\n      }\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "40126689-5ff4-4499-905d-2868424aad40",
+              "name": "Malformed request (validation failed, schema mismatch, etc.).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mapping"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"idType\": \"TICKER\",\n    \"idValue\": \"IBM\",\n    \"exchCode\": \"US\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e2b35ea4-07b9-46dc-844b-653fe29fd1fb",
+              "name": "Invalid X-OPENFIGI-APIKEY.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mapping"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"idType\": \"TICKER\",\n    \"idValue\": \"IBM\",\n    \"exchCode\": \"US\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "23ebc942-ca5b-4f83-8bed-908ea9ad4ea6",
+              "name": "Rate limit exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mapping"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"idType\": \"TICKER\",\n    \"idValue\": \"IBM\",\n    \"exchCode\": \"US\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8e689c12-7b94-4bdc-b651-c09c0d917c77",
+              "name": "Internal server error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mapping"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"idType\": \"TICKER\",\n    \"idValue\": \"IBM\",\n    \"exchCode\": \"US\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "360b27f0-526b-432d-ac1f-c7a98d2a4832",
+              "name": "Service temporarily unavailable.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mapping"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"idType\": \"TICKER\",\n    \"idValue\": \"IBM\",\n    \"exchCode\": \"US\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.openfigi.com/v3",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "noauth"
+  },
+  "info": {
+    "_postman_id": "af5bc865-d26a-427a-973d-b34fb5835c7b",
+    "name": "OpenFIGI Filter Mapping API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The OpenFIGI API is the free, public REST API operated by Bloomberg as\nRegistration Authority for the Object Management Group (OMG) Financial\nInstrument Global Identifier (FIGI) standard. It maps third-party\nidentifiers (TICKER, ID_ISIN, ID_CUSIP, ID_SEDOL, ID_BB_GLOBAL, COMPOSITE_ID_BB_GLOBAL,\netc.) to FIGIs and exposes search and filter endpoints across hundreds of\nmillions of active and inactive securities.\n\nThe /v3 API is JSON over HTTPS. Authentication is optional via the\n`X-OPENFIGI-APIKEY` header; supplying an API key raises rate limits.\n\nNote: /v2 is deprecated with a sunset date of July 1, 2026 — clients should\nmigrate to /v3 endpoints and switch error handling from \"error\" to \"warning\"\non no-match responses.\n\n\nContact Support:\n Name: OpenFIGI Support",
+      "type": "text/plain"
+    }
+  }
+}

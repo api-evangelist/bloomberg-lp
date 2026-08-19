@@ -1,0 +1,37 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "OpenFIGI Filter Reference API",
+    "version": "3.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Reference",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Enumerated Values For A Mapping Field",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.openfigi.com/v3/mapping/values/:key",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "The mapping field to enumerate."
+              }
+            ]
+          },
+          "docs": "Return the list of valid values for an enum-like mapping field such as\n`idType`, `exchCode`, `currency`, `securityType`, `securityType2`,\n`marketSecDes`, `micCode`, or `stateCode`.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

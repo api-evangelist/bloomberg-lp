@@ -1,0 +1,33 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "OpenFIGI Filter Search API",
+    "version": "3.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Search",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Keyword-Search The FIGI Universe",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.openfigi.com/v3/search",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search across the FIGI universe by free-text query plus optional\nfilters such as exchCode, currency, securityType, marketSecDes, and\ndate ranges. Results are paginated with the opaque `start` cursor\nreturned in the previous response.\n\nWithout an API key: 5 requests/minute. With an API key: 20 requests/minute.\nResults are capped at 15,000 records per query.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

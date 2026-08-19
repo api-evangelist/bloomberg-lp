@@ -1,0 +1,33 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "OpenFIGI Filter Mapping API",
+    "version": "3.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Mapping",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Map Third-Party Identifiers To FIGIs",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.openfigi.com/v3/mapping",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Map one or more third-party identifiers (ticker, ISIN, CUSIP, SEDOL,\nBloomberg Global ID, etc.) to FIGI records. The request body is a JSON\narray of mapping jobs. Each job is processed independently and returns\neither matched data, a warning (no match), or an error.\n\nWithout an API key: 25 requests/minute, up to 10 jobs per request.\nWith an API key: 25 requests/6 seconds, up to 100 jobs per request.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
