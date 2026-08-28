@@ -9,6 +9,18 @@ description: >-
   products via SDKs in C++, Java, Python and .NET, and operates OpenFIGI — the free, public Financial Instrument Global
   Identifier (FIGI) symbology API and the most openly accessible Bloomberg API surface for the general developer
   audience.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: enterprise
   onboarding: self-serve
