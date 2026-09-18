@@ -1,31 +1,11 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: OpenFIGI Filter API
   description: 'The OpenFIGI API is the free, public REST API operated by Bloomberg as
 
     Registration Authority for the Object Management Group (OMG) Financial
 
-    Instrument Global Identifier (FIGI) standard. It maps third-party
-
-    identifiers (TICKER, ID_ISIN, ID_CUSIP, ID_SEDOL, ID_BB_GLOBAL, COMPOSITE_ID_BB_GLOBAL,
-
-    etc.) to FIGIs and exposes search and filter endpoints across hundreds of
-
-    millions of active and inactive securities.
-
-
-    The /v3 API is JSON over HTTPS. Authentication is optional via the
-
-    `X-OPENFIGI-APIKEY` header; supplying an API key raises rate limits.
-
-
-    Note: /v2 is deprecated with a sunset date of July 1, 2026 — clients should
-
-    migrate to /v3 endpoints and switch error handling from "error" to "warning"
-
-    on no-match responses.
-
-    '
+    Instrument Global Identifier (FIGI) standard.'
   version: 3.0.0
   contact:
     name: OpenFIGI Support
@@ -56,9 +36,7 @@ paths:
 
         Without an API key: 5 requests/minute. With an API key: 20 requests/minute.
 
-        Results are capped at 15,000 records per query.
-
-        '
+        Results are capped at 15,000 records per query.'
       tags:
       - Filter
       requestBody:
@@ -116,15 +94,17 @@ components:
           type: string
           description: Share-class FIGI grouping multiple composite FIGIs for the same share class.
         uniqueIDFutOpt:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         securityType2:
           type: string
         securityDescription:
           type: string
         metadata:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
     SearchRequest:
       type: object
       required:
@@ -161,8 +141,8 @@ components:
           type: string
           description: Opaque cursor for the next page; absent on the final page.
   responses:
-    Unauthorized:
-      description: Invalid X-OPENFIGI-APIKEY.
+    BadRequest:
+      description: Malformed request (validation failed, schema mismatch, etc.).
       content:
         application/json:
           schema:
@@ -173,8 +153,8 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorBody'
-    BadRequest:
-      description: Malformed request (validation failed, schema mismatch, etc.).
+    Unauthorized:
+      description: Invalid X-OPENFIGI-APIKEY.
       content:
         application/json:
           schema:

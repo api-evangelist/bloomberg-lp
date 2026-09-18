@@ -1,10 +1,7 @@
 {
   "provider": "bloomberg-lp",
   "sources": [
-    "bloomberg-lp-filter-api-openapi.yml",
-    "bloomberg-lp-mapping-api-openapi.yml",
-    "bloomberg-lp-reference-api-openapi.yml",
-    "bloomberg-lp-search-api-openapi.yml"
+    "_original/openfigi-openapi.yml"
   ],
   "outputs": [
     "bloomberg-lp-filter-api-openapi.yml",
@@ -14,12 +11,18 @@
   ],
   "archived": [],
   "errors": [
-    "bloomberg-lp-filter-api-openapi.yml: dangling $ref: #/components/schemas/ErrorBody",
-    "bloomberg-lp-mapping-api-openapi.yml: dangling $ref: #/components/schemas/ErrorBody",
-    "bloomberg-lp-reference-api-openapi.yml: dangling $ref: #/components/schemas/ErrorBody",
-    "bloomberg-lp-search-api-openapi.yml: dangling $ref: #/components/schemas/ErrorBody"
+    "openfigi-openapi.yml: dangling $ref: #/components/schemas/ErrorBody"
   ],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "openfigi-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "bloomberg-lp-filter-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "bloomberg-lp-mapping-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "bloomberg-lp-reference-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "bloomberg-lp-search-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
